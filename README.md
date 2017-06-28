@@ -1,4 +1,4 @@
-# Natural Language Processing
+# Natural Language Processing: Stupid Backoff
 
 ### 1. Introduction
 
@@ -7,7 +7,7 @@ To speed up the process of creation of the N-Gram model a Map Reduce process was
 
 ### 2. Data
 
-The data comes from [The Open American National Corpus](http://http://www.anc.org/) and it is composed of two different corpora:  
+The data comes from [The Open American National Corpus](http://http://www.anc.org/) which provide two different corpora:  
   * **[OANC](http://www.anc.org/data/oanc/)** : 15 million words of contemporary American English with automatically-produced annotations for a variety of linguistic phenomena.  
   * **[MASC](http://www.anc.org/data/masc/)** : 500,000 words of OANC data equally distributed over 19 genres of American English, with manully produced or validated annotations for several layers of linguistic phenomena.  
   
