@@ -9,12 +9,12 @@ from Formats import TimeFormats
 
 class CreateCorpus:
 
-    def __init__(self, DataPath = '../data/'):
-        self.color01 = "\033[92m" # Green
-        self.color02 = "\033[93m"  # Yellow
+    def __init__(self, DataPath = '../data/', infoLog = defaultdict(list)):
+        self.color01 = "\033[92m"  # Green
 
+        self.infoLog = infoLog
         # Start Log dict
-        self.infoLog = defaultdict(list)
+        # self.infoLog = defaultdict(list)
 
         # Print Start Time
         self.infoLog['StartDownloadScript'] = datetime.datetime.now().time().strftime('%H:%M:%S')
@@ -29,8 +29,8 @@ class CreateCorpus:
         self.infoLog['StopDownloadScript'] = datetime.datetime.now().time().strftime('%H:%M:%S')
         self.infoLog['TEDownloadScript'] = (datetime.datetime.strptime(self.infoLog['StopDownloadScript'], '%H:%M:%S') -
                                             datetime.datetime.strptime(self.infoLog['StartDownloadScript'], '%H:%M:%S'))
-        TimeFormats.StopScript(self, StopTime=self.infoLog['StopDownloadScript'],
-                               TimeElapse=self.infoLog['TEDownloadScript'], phrase="DownloadFiles.py Finished")
+        TimeFormats.StopScript(self, TimeElapse=self.infoLog['TEDownloadScript'], phrase="DownloadFiles.py Finished")
+
 
 
     # Check if the files are already downloaded, if not it download it
