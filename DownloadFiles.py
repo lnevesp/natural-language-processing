@@ -3,6 +3,8 @@ import tarfile
 import os.path
 import glob
 import datetime
+from collections import defaultdict
+from Formats import TimeFormats
 
 
 class CreateCorpus:
@@ -10,84 +12,98 @@ class CreateCorpus:
     def __init__(self, DataPath = '../data/'):
         self.color01 = "\033[92m" # Green
         self.color02 = "\033[93m"  # Yellow
-        startCreateCorpus = datetime.datetime.now().time().strftime('%H:%M:%S')
-        print(self.color01 + "\n>>> " + "\033[0m" +
-              "Starting DownloadFiles.py - " + self.color01 + startCreateCorpus + "\033[0m")
+
+        # Start Log dict
+        self.infoLog = defaultdict(list)
+
+        # Print Start Time
+        self.infoLog['StartDownloadScript'] = datetime.datetime.now().time().strftime('%H:%M:%S')
+        TimeFormats.StartScript(self, time=self.infoLog['StartDownloadScript'], phrase="Starting DownloadFiles.py")
+
         self.DataPath = '../data/'
         self.downloadFiles(DataPath)
         self.extractFiles(self.DataPath)
         self.createCorpus(self.DataPath)
-        finishCreateCorpus = datetime.datetime.now().time().strftime('%H:%M:%S')
-        TimeElapse = (datetime.datetime.strptime(finishCreateCorpus, '%H:%M:%S') -
-                      datetime.datetime.strptime(startCreateCorpus, '%H:%M:%S'))
-        print(self.color01 + ">>> " + "\033[0m" +
-              "DownloadFiles.py Finished" + self.color01 + " | " + "\033[0m" +
-              "Time Elapse: " + self.color01 + str(TimeElapse) + "\033[0m")
+
+        # Print Final Time
+        self.infoLog['StopDownloadScript'] = datetime.datetime.now().time().strftime('%H:%M:%S')
+        self.infoLog['TEDownloadScript'] = (datetime.datetime.strptime(self.infoLog['StopDownloadScript'], '%H:%M:%S') -
+                                            datetime.datetime.strptime(self.infoLog['StartDownloadScript'], '%H:%M:%S'))
+        TimeFormats.StopScript(self, StopTime=self.infoLog['StopDownloadScript'],
+                               TimeElapse=self.infoLog['TEDownloadScript'], phrase="DownloadFiles.py Finished")
+
 
     # Check if the files are already downloaded, if not it download it
     def downloadFiles(self, DataPath):
 
         if os.path.isfile(DataPath + "ANC_Corpora.tar.gz") != 1:
-            startdownload = datetime.datetime.now().time().strftime('%H:%M:%S')
-            print(self.color01 + ">>>  " + startdownload + "\033[0m" +
-                  " Downloading Corpora", end='', flush=True)
-            # Downloading Corpora
+
+            # Print start download time
+            self.infoLog['StartDownload'] = datetime.datetime.now().time().strftime('%H:%M:%S')
+            TimeFormats.timeElapse1(self, time=self.infoLog['StartDownload'], phrase= "Downloading Corpora")
+
+            # Download ANC Corpora
             urllib.request.urlretrieve("https://www.dropbox.com/s/hbmn0rbkujnxqrt/ANC_Corpora.tar.gz?dl=1",
                                        DataPath + "ANC_Corpora.tar.gz")
+
             # Print time elapse
-            finishdownload = datetime.datetime.now().time().strftime('%H:%M:%S')
-            TimeElapse = (datetime.datetime.strptime(finishdownload, '%H:%M:%S') -
-                          datetime.datetime.strptime(startdownload, '%H:%M:%S'))
-            print(" - Time Elapse: " + self.color01 + str(TimeElapse) + "\033[0m")
+            self.infoLog['StopDownload'] = datetime.datetime.now().time().strftime('%H:%M:%S')
+            self.infoLog['TEDownload'] = (datetime.datetime.strptime(self.infoLog['StopDownload'], '%H:%M:%S') -
+                                          datetime.datetime.strptime(self.infoLog['StartDownload'], '%H:%M:%S'))
+            TimeFormats.timeElapse2(self, TimeElapse=self.infoLog['TEDownload'])
 
         else:
-            print(self.color01 + ">>>  " + datetime.datetime.now().time().strftime('%H:%M:%S') + "\033[0m" +
-                  " Corpora already downloaded")
+            TimeFormats.NormalMessage(self, phrase="Corpora already downloaded")
+
 
     # Extract files function
     def extractFunction(self, tar_url, DataPath):
-        startextract = datetime.datetime.now().time().strftime('%H:%M:%S')
-        print(self.color01 + ">>>  " + startextract + "\033[0m" +
-              " Extract Corpora", end='', flush=True)
+
+        self.infoLog['StartExtract'] = datetime.datetime.now().time().strftime('%H:%M:%S')
+        TimeFormats.timeElapse1(self, time=self.infoLog['StartExtract'], phrase="Extracting Files")
+
         tar = tarfile.open(tar_url, 'r')
         for item in tar:
             tar.extract(item, DataPath )
             if item.name.find(".tar.gz") != -1:
                 extractFunction(item.name, "./" + item.name[:item.name.rfind('/')])
+
         # Print time elapse
-        finishextract = datetime.datetime.now().time().strftime('%H:%M:%S')
-        TimeElapse = (datetime.datetime.strptime(finishextract, '%H:%M:%S') -
-                      datetime.datetime.strptime(startextract, '%H:%M:%S'))
-        print(" - Time Elapse: " + self.color01 + str(TimeElapse) + "\033[0m")
+        self.infoLog['StopExtract'] = datetime.datetime.now().time().strftime('%H:%M:%S')
+        self.infoLog['TEExtract'] = (datetime.datetime.strptime(self.infoLog['StopExtract'], '%H:%M:%S') -
+                                      datetime.datetime.strptime(self.infoLog['StartExtract'], '%H:%M:%S'))
+        TimeFormats.timeElapse2(self, TimeElapse=self.infoLog['TEExtract'])
 
     # Check if the files are already extracted, if not then do the extraction...
     def extractFiles(self, DataPath):
         if os.path.isdir(DataPath + "ANC_Corpora/") != 1:
             self.extractFunction(DataPath + "ANC_Corpora.tar.gz", DataPath = "../data/")
         else:
-            print(self.color01 + ">>>  " + datetime.datetime.now().time().strftime('%H:%M:%S') + "\033[0m" +
-                  " Files already extracted")
+            TimeFormats.NormalMessage(self, phrase="Files already extracted")
+
 
     # Aggregate Files
     def createCorpus(self, DataPath):
         # Read *.txt File names
         FileNames = glob.glob('../data/ANC_Corpora/*.txt')
         if os.path.isfile(DataPath + "RawCorpus.txt") != 1:
-            startcorpus = datetime.datetime.now().time().strftime('%H:%M:%S')
-            print(self.color01 + ">>>  " + startcorpus + "\033[0m" +
-                  " Creating Corpus", end='', flush=True)
+
+            self.infoLog['StartWriteCorpus'] = datetime.datetime.now().time().strftime('%H:%M:%S')
+            TimeFormats.timeElapse1(self, time=self.infoLog['StartWriteCorpus'], phrase="Writing Corpus")
+
             with open(DataPath + "RawCorpus.txt", 'w') as outfile:
                 for fname in FileNames:
                     with open(fname) as infile:
                         for line in infile:
                             outfile.write(line)
+
             # Print time elapse
-            finishcorpus = datetime.datetime.now().time().strftime('%H:%M:%S')
-            TimeElapse = (datetime.datetime.strptime(finishcorpus, '%H:%M:%S') -
-                          datetime.datetime.strptime(startcorpus, '%H:%M:%S'))
-            print(" - Time Elapse: " + self.color01 + str(TimeElapse) + "\033[0m")
+            self.infoLog['StopWriteCorpus'] = datetime.datetime.now().time().strftime('%H:%M:%S')
+            self.infoLog['TEWriteCorpus'] = (datetime.datetime.strptime(self.infoLog['StopWriteCorpus'], '%H:%M:%S') -
+                                             datetime.datetime.strptime(self.infoLog['StartWriteCorpus'], '%H:%M:%S'))
+            TimeFormats.timeElapse2(self, TimeElapse=self.infoLog['TEWriteCorpus'])
         else:
-            print(self.color01 + ">>>  " + datetime.datetime.now().time().strftime('%H:%M:%S') + "\033[0m" +
-                  " Corpus already created")
+            TimeFormats.NormalMessage(self, phrase="Corpus already created")
+
 
 # CreateCorpus(DataPath = '../data/')
