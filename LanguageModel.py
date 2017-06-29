@@ -1,7 +1,6 @@
 import random
-import os
 import datetime
-from subprocess import call
+from collections import defaultdict
 import subprocess
 import pickle
 import Ngram
@@ -13,12 +12,14 @@ class GenerateLanguageModel:
 
     def __init__(self, File, Method , Percent):
         self.startModel = datetime.datetime.now().time().strftime('%H:%M:%S')
+
+        self.infoLog = defaultdict(list)
         # Print Colors:
         self.color01 = "\033[92m" # Green
         self.color02 = "\033[93m" # Yellow
         print(self.color01 + ">>> " + self.startModel + "\033[0m" + " Starting Language Model Generation")
-        DownloadFiles.CreateCorpus(DataPath = '../data/')
-        CleanData.CleanCorpus(RawCorpus="../data/RawCorpus.txt")
+        DownloadFiles.CreateCorpus(DataPath = '../data/', infoLog = self.infoLog)
+        CleanData.CleanCorpus(RawCorpus="../data/RawCorpus.txt", infoLog = self.infoLog)
         self.createModel(File=File, Method=Method, Percent=Percent)
         self.FinishModel = datetime.datetime.now().time().strftime('%H:%M:%S')
         TimeElapse = (datetime.datetime.strptime(self.FinishModel, '%H:%M:%S') -
@@ -27,9 +28,14 @@ class GenerateLanguageModel:
 
         print(self.color01 + "\n>>> " + self.FinishModel + "\033[0m" + " Process Finished" +
               self.color01 + " | " + "\033[0m" + "Time Elapse: " + self.color01 + str(TimeElapse))
+        print(self.infoLog)
 
     def sampling(self, Data, output, N,  percent):
-        n = int(round(N*percent, 0))
+
+        n = int(round(N*percent, 0))  # Sample Size
+        self.infoLog['SampleSize'] = n
+        self.infoLog['SampleRate'] = percent
+        random.seed(123)  # Set Seed
         SampleData = [Data[i] for i in sorted(random.sample(range(N), n))]
         with open('../data/' + output, 'wb') as file:
             pickle.dump(SampleData, file, pickle.HIGHEST_PROTOCOL)
@@ -66,7 +72,7 @@ class GenerateLanguageModel:
         elif Method.lower() == "sequential":
             self.startMethod = datetime.datetime.now().time().strftime('%H:%M:%S')
             print(self.color01 + ">>> " + self.startMethod + "\033[0m" + " Executing Sequential Method")
-            Ngram.GenerateNGram(Data=self.TrainData)
+            Ngram.GenerateNGram(Data=self.TrainData, infoLog=self.infoLog)
         else:
             self.startMethod = datetime.datetime.now().time().strftime('%H:%M:%S')
             print(self.color01 + ">>> " + self.startMethod + "\033[0m" + "Error: " + Method + " is not an available method.")
@@ -85,7 +91,7 @@ class GenerateLanguageModel:
               self.color01 + str(TimeElapse) + "\033[0m")
 
 
-GenerateLanguageModel(File="../data/Tokens.pickle", Method="sequential", Percent=0.30)
+GenerateLanguageModel(File="../data/Tokens.pickle", Method="sequential", Percent=0.05)
 
 # import profile
 # profile.run('GenerateLanguageModel(File="../data/Tokens.pickle", Method="Sequential", Percent=0.01)')
