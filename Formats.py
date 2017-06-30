@@ -3,6 +3,12 @@ import datetime
 
 class TimeFormats:
 
+    def calcTimeNow(self):
+        return datetime.datetime.now().time().strftime('%H:%M:%S')
+
+    def formatTime(self, time):
+        return datetime.datetime.strptime(time, '%H:%M:%S')
+
     def StartScript(self, time, phrase):
         print(self.color01 + "\n>>> " + "\033[0m" +
               phrase + " - " + self.color01 + time + "\033[0m")
