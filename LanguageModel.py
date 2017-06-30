@@ -6,6 +6,7 @@ import pickle
 import Ngram
 import DownloadFiles
 import CleanData
+from Formats import TimeFormats as tf
 
 
 class GenerateLanguageModel:
@@ -18,16 +19,30 @@ class GenerateLanguageModel:
         self.color01 = "\033[92m" # Green
         self.color02 = "\033[93m" # Yellow
         print(self.color01 + ">>> " + self.startModel + "\033[0m" + " Starting Language Model Generation")
+
+        # Download Files
         DownloadFiles.CreateCorpus(DataPath = '../data/', infoLog = self.infoLog)
+
+        # Clean Data
         CleanData.CleanCorpus(RawCorpus="../data/RawCorpus.txt", infoLog = self.infoLog)
+
+        # Create Model
         self.createModel(File=File, Method=Method, Percent=Percent)
         self.FinishModel = datetime.datetime.now().time().strftime('%H:%M:%S')
+
+        print(self.color01 + "\n>>> " + datetime.datetime.now().time().strftime('%H:%M:%S') + "\033[0m" + "Saving Log")
+        # TODO: Save log
+
+
         TimeElapse = (datetime.datetime.strptime(self.FinishModel, '%H:%M:%S') -
                       datetime.datetime.strptime(self.startModel, '%H:%M:%S'))
-        # TODO: Save log
+
+
+
 
         print(self.color01 + "\n>>> " + self.FinishModel + "\033[0m" + " Process Finished" +
               self.color01 + " | " + "\033[0m" + "Time Elapse: " + self.color01 + str(TimeElapse))
+
         print(self.infoLog)
 
     def sampling(self, Data, output, N,  percent):
@@ -91,7 +106,7 @@ class GenerateLanguageModel:
               self.color01 + str(TimeElapse) + "\033[0m")
 
 
-GenerateLanguageModel(File="../data/Tokens.pickle", Method="sequential", Percent=0.05)
+GenerateLanguageModel(File="../data/Tokens.pickle", Method="sequential", Percent=0.10)
 
 # import profile
 # profile.run('GenerateLanguageModel(File="../data/Tokens.pickle", Method="Sequential", Percent=0.01)')
