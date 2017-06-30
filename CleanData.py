@@ -6,7 +6,7 @@ import html
 import nltk
 import sys
 import os.path
-from Formats import TimeFormats
+from Formats import TimeFormats as tf
 from collections import defaultdict
 
 
@@ -16,40 +16,39 @@ class CleanCorpus:
         self.color01 = "\033[92m"  # Green
         self.infoLog = infoLog
 
-        StartCleanScript = datetime.datetime.now().time().strftime('%H:%M:%S')
-        TimeFormats.StartScript(self, time=StartCleanScript, phrase="Starting CleanData.py")
+        StartCleanScript = tf.calcTimeNow(self)
+        tf.StartScript(self, time=StartCleanScript, phrase="Starting CleanData.py")
 
         if os.path.isfile("../data/Tokens.pickle") != 1:
 
             self.read_corpora(RawCorpus)
 
-            StopCleanLines = datetime.datetime.now().time().strftime('%H:%M:%S')
-            self.infoLog['TECleanLines'] = (datetime.datetime.strptime(StopCleanLines, '%H:%M:%S') -
-                                            datetime.datetime.strptime(StartCleanScript, '%H:%M:%S'))
-            TimeFormats.timeElapse2(self, self.infoLog['TECleanLines'])
+            # StopCleanLines = tf.calcTimeNow(self)
+            self.infoLog['TECleanLines'] = (tf.formatTime(self, tf.calcTimeNow(self)) -
+                                            tf.formatTime(self, StartCleanScript))
+            tf.timeElapse2(self, self.infoLog['TECleanLines'])
 
-            StartWriteTokens = datetime.datetime.now().time().strftime('%H:%M:%S')
-            TimeFormats.timeElapse1(self, time=StartWriteTokens, phrase="Writing Tokens File")
+            StartWriteTokens = tf.calcTimeNow(self)
+            tf.timeElapse1(self, time=StartWriteTokens, phrase="Writing Tokens File")
 
             # If the tokens were created then save then into Tokens.pickle file
             if self.Tokens:
                 with open('../data/Tokens.pickle', 'wb') as file:
                     pickle.dump(self.Tokens, file, pickle.HIGHEST_PROTOCOL)
             # Print time elapse
-            StopWriteTokens = datetime.datetime.now().time().strftime('%H:%M:%S')
-            self.infoLog['TEWriteTokens'] = (datetime.datetime.strptime(StopWriteTokens, '%H:%M:%S') -
-                                          datetime.datetime.strptime(StartWriteTokens, '%H:%M:%S'))
-            TimeFormats.timeElapse2(self, TimeElapse=self.infoLog['TEWriteTokens'])
+            # StopWriteTokens = datetime.datetime.now().time().strftime('%H:%M:%S')
+            self.infoLog['TEWriteTokens'] = (tf.formatTime(self, tf.calcTimeNow(self)) -
+                                             tf.formatTime(self, StartWriteTokens))
+            tf.timeElapse2(self, TimeElapse=self.infoLog['TEWriteTokens'])
 
         else:
-            TimeFormats.NormalMessage(self, phrase="Tokens already created")
+            tf.NormalMessage(self, phrase="Tokens already created")
             self.infoLog['TEWriteTokens'] = datetime.timedelta(0)
 
         # Print Final Time
-        StopCleanScript = datetime.datetime.now().time().strftime('%H:%M:%S')
-        self.infoLog['TECleanScript'] = (datetime.datetime.strptime(StopCleanScript, '%H:%M:%S') -
-                                         datetime.datetime.strptime(StartCleanScript, '%H:%M:%S'))
-        TimeFormats.StopScript(self, TimeElapse=self.infoLog['TECleanScript'], phrase="CleanData.py Finished")
+        # StopCleanScript = tf.calcTimeNow(self)
+        self.infoLog['TECleanScript']=(tf.formatTime(self, tf.calcTimeNow(self))-tf.formatTime(self, StartCleanScript))
+        tf.StopScript(self, TimeElapse=self.infoLog['TECleanScript'], phrase="CleanData.py Finished")
 
 
     def createTokens(self, line, vocab):
@@ -87,23 +86,23 @@ class CleanCorpus:
     """Read the Raw Corpus, returns all sentences tokenized and cleaned"""
     def read_corpora(self, RawCorpus):
         # Print start download time
-        startReadingCorpus = datetime.datetime.now().time().strftime('%H:%M:%S')
-        TimeFormats.timeElapse1(self, time=startReadingCorpus, phrase="Reading Corpus")
+        startReadingCorpus = tf.calcTimeNow(self)
+        tf.timeElapse1(self, time=startReadingCorpus, phrase="Reading Corpus")
 
         rawCorpus = open(RawCorpus)
         rawCorpus = rawCorpus.readlines()
 
         # Print time elapse
-        stopReadingCorpus = datetime.datetime.now().time().strftime('%H:%M:%S')
-        self.infoLog['TEReadCorpus'] = (datetime.datetime.strptime(stopReadingCorpus, '%H:%M:%S') -
-                                      datetime.datetime.strptime(startReadingCorpus, '%H:%M:%S'))
-        TimeFormats.timeElapse2(self, TimeElapse=self.infoLog['TEReadCorpus'])
+        # stopReadingCorpus = datetime.datetime.now().time().strftime('%H:%M:%S')
+        self.infoLog['TEReadCorpus'] = (tf.formatTime(self, tf.calcTimeNow(self)) -
+                                        tf.formatTime(self,startReadingCorpus))
+        tf.timeElapse2(self, TimeElapse=self.infoLog['TEReadCorpus'])
 
 
         """Using nltk corpora to built a large corpus of english words"""
 
-        startVocabulary = datetime.datetime.now().time().strftime('%H:%M:%S')
-        TimeFormats.timeElapse1(self, time=startVocabulary, phrase="Creating English Vocabulary Set")
+        startVocabulary = tf.calcTimeNow(self)
+        tf.timeElapse1(self, time=startVocabulary, phrase="Creating English Vocabulary Set")
 
         english_vocab = set(w.lower() for w in nltk.corpus.brown.words())
         english_vocab = english_vocab.union(set(w.lower() for w in nltk.corpus.reuters.words()))
@@ -121,13 +120,12 @@ class CleanCorpus:
         english_vocab = english_vocab.union(set(w.lower() for w in nltk.corpus.state_union.words()))
 
         # Print time elapse
-        stopVocabulary = datetime.datetime.now().time().strftime('%H:%M:%S')
-        self.infoLog['TEVocabulary'] = (datetime.datetime.strptime(stopVocabulary, '%H:%M:%S') -
-                                        datetime.datetime.strptime(startVocabulary, '%H:%M:%S'))
-        TimeFormats.timeElapse2(self, TimeElapse=self.infoLog['TEVocabulary'])
+        # stopVocabulary = datetime.datetime.now().time().strftime('%H:%M:%S')
+        self.infoLog['TEVocabulary'] = (tf.formatTime(self, tf.calcTimeNow(self)) -
+                                        tf.formatTime(self,startVocabulary))
+        tf.timeElapse2(self, TimeElapse=self.infoLog['TEVocabulary'])
 
-
-        self.infoLog['StartCleanLines'] = datetime.datetime.now().time().strftime('%H:%M:%S')
+        self.infoLog['StartCleanLines'] = tf.calcTimeNow(self)
         self.Tokens = []
         i = 0
         totalLines = len(rawCorpus)
