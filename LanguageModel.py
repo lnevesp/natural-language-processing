@@ -7,6 +7,10 @@ import Ngram
 import DownloadFiles
 import CleanData
 from Formats import TimeFormats as tf
+import pandas as pd
+# import shutil
+from shutil import rmtree
+import os
 
 
 class GenerateLanguageModel:
@@ -31,14 +35,14 @@ class GenerateLanguageModel:
         self.FinishModel = datetime.datetime.now().time().strftime('%H:%M:%S')
 
         print(self.color01 + "\n>>> " + datetime.datetime.now().time().strftime('%H:%M:%S') + "\033[0m" + "Saving Log")
-        # TODO: Save log
 
+        # TODO: Save log
+        self.infoLog = pd.DataFrame([self.infoLog])
+        filename = "../data/Log.csv"
+        self.infoLog.to_csv(filename, index=False, encoding='utf-8')
 
         TimeElapse = (datetime.datetime.strptime(self.FinishModel, '%H:%M:%S') -
                       datetime.datetime.strptime(self.startModel, '%H:%M:%S'))
-
-
-
 
         print(self.color01 + "\n>>> " + self.FinishModel + "\033[0m" + " Process Finished" +
               self.color01 + " | " + "\033[0m" + "Time Elapse: " + self.color01 + str(TimeElapse))
@@ -83,14 +87,27 @@ class GenerateLanguageModel:
             self.startMethod = datetime.datetime.now().time().strftime('%H:%M:%S')
             print(self.color01 + ">>> " + self.startMethod + "\033[0m" + " Executing MapReduce Method")
             # Executing shell script.
-            subprocess.check_call(["echo 'SampleTokens.pickle' | ../multicore-hdfs/mc-hdfs.sh 5m 8 'python Mapper.py' 'python Reducer.py' ../data/MapReduceOutput_00001"], shell=True)
+            output = "../data/MapReduce"
+            mapReduce = "'python Mapper.py' 'python Reducer.py'"
+            blocksize = "50m"
+            reducers = "8"
+            shell_command = ["echo 'SampleTokens.pickle' | ../multicore-hdfs/mc-hdfs.sh " + blocksize + " " +
+                             reducers + " " + mapReduce + " " + output]
+            if os.path.exists(output):
+                rmtree(output)
+                subprocess.check_call(shell_command, shell=True)
+            else:
+                subprocess.check_call(shell_command, shell=True)
+
         elif Method.lower() == "sequential":
             self.startMethod = datetime.datetime.now().time().strftime('%H:%M:%S')
             print(self.color01 + ">>> " + self.startMethod + "\033[0m" + " Executing Sequential Method")
             Ngram.GenerateNGram(Data=self.TrainData, infoLog=self.infoLog)
+
         else:
             self.startMethod = datetime.datetime.now().time().strftime('%H:%M:%S')
-            print(self.color01 + ">>> " + self.startMethod + "\033[0m" + "Error: " + Method + " is not an available method.")
+            print(self.color01 + ">>> " + self.startMethod + "\033[0m" + "Error: " +
+                  Method + " is not an available method.")
 
         # Create Test Data.
         startTestData = datetime.datetime.now().time().strftime('%H:%M:%S')
@@ -106,7 +123,7 @@ class GenerateLanguageModel:
               self.color01 + str(TimeElapse) + "\033[0m")
 
 
-GenerateLanguageModel(File="../data/Tokens.pickle", Method="sequential", Percent=0.10)
+GenerateLanguageModel(File="../data/Tokens.pickle", Method="mapreduce", Percent=0.10)
 
 # import profile
 # profile.run('GenerateLanguageModel(File="../data/Tokens.pickle", Method="Sequential", Percent=0.01)')
