@@ -8,7 +8,6 @@ import DownloadFiles
 import CleanData
 from Formats import TimeFormats as tf
 import pandas as pd
-# import shutil
 from shutil import rmtree
 import os
 
@@ -16,13 +15,15 @@ import os
 class GenerateLanguageModel:
 
     def __init__(self, File, Method , Percent):
-        self.startModel = datetime.datetime.now().time().strftime('%H:%M:%S')
-
         self.infoLog = defaultdict(list)
+
+        self.infoLog['StartModel'] = tf.calcTimeNow(self)
+
         # Print Colors:
         self.color01 = "\033[92m" # Green
-        self.color02 = "\033[93m" # Yellow
-        print(self.color01 + ">>> " + self.startModel + "\033[0m" + " Starting Language Model Generation")
+        tf.StartModel(self, self.infoLog['StartModel'])
+
+        # print(self.color01 + ">>> " + self.infoLog['startModel'] + "\033[0m" + " Starting Language Model Generation")
 
         # Download Files
         DownloadFiles.CreateCorpus(DataPath = '../data/', infoLog = self.infoLog)
@@ -32,20 +33,21 @@ class GenerateLanguageModel:
 
         # Create Model
         self.createModel(File=File, Method=Method, Percent=Percent)
-        self.FinishModel = datetime.datetime.now().time().strftime('%H:%M:%S')
 
-        print(self.color01 + "\n>>> " + datetime.datetime.now().time().strftime('%H:%M:%S') + "\033[0m" + "Saving Log")
+
+        print(self.color01 + "\n>>> " + tf.calcTimeNow(self) + "\033[0m" + " Saving Log")
 
         # TODO: Save log
         self.infoLog = pd.DataFrame([self.infoLog])
         filename = "../data/Log.csv"
         self.infoLog.to_csv(filename, index=False, encoding='utf-8')
 
-        TimeElapse = (datetime.datetime.strptime(self.FinishModel, '%H:%M:%S') -
-                      datetime.datetime.strptime(self.startModel, '%H:%M:%S'))
+        self.infoLog['StopModel'] = tf.calcTimeNow(self)
+        self.infoLog['TELanguage'] = (tf.formatTime(self, self.infoLog['StopModel']) -
+                                      tf.formatTime(self, self.infoLog['StartModel']))
 
-        print(self.color01 + "\n>>> " + self.FinishModel + "\033[0m" + " Process Finished" +
-              self.color01 + " | " + "\033[0m" + "Time Elapse: " + self.color01 + str(TimeElapse))
+        print(self.color01 + "\n>>> " + self.infoLog['StopModel'] + "\033[0m" + " Process Finished" +
+              self.color01 + " | " + "\033[0m" + "Time Elapse: " + self.color01 + str(self.infoLog['TELanguage']))
 
         print(self.infoLog)
 
@@ -61,35 +63,35 @@ class GenerateLanguageModel:
         return SampleData
 
     def createModel(self, File, Method, Percent):
-        startReading = datetime.datetime.now().time().strftime('%H:%M:%S')
+        startReading = tf.calcTimeNow(self)
         print(self.color01 + "\n>>> " + startReading + "\033[0m" +
               " Reading Tokens Data", end='', flush=True)
         with open(File, "rb") as file:  # Unpickling
             Data = pickle.load(file)
         N = len(Data)
-        finishReading = datetime.datetime.now().time().strftime('%H:%M:%S')
+        finishReading = tf.calcTimeNow(self)
         TimeElapse = (datetime.datetime.strptime(finishReading, '%H:%M:%S') -
                       datetime.datetime.strptime(startReading, '%H:%M:%S'))
         print(self.color01 + " | " + "\033[0m" + "Time Elapse: " + self.color01 + str(TimeElapse) + "\033[0m")
 
         # Creating Train Data
-        startSampling = datetime.datetime.now().time().strftime('%H:%M:%S')
+        startSampling = tf.calcTimeNow(self)
         print(self.color01 + ">>> " + startSampling + "\033[0m" +
               " Sampling Tokens Data", end='', flush=True)
         self.TrainData = self.sampling(Data=Data, output="SampleTokens.pickle", N=N, percent=Percent)
-        finishSampling = datetime.datetime.now().time().strftime('%H:%M:%S')
+        finishSampling = tf.calcTimeNow(self)
         TimeElapse = (datetime.datetime.strptime(finishSampling, '%H:%M:%S') -
                       datetime.datetime.strptime(startSampling, '%H:%M:%S'))
         print(self.color01 + " | " + "\033[0m" + "Time Elapse: " + self.color01 + str(TimeElapse) + "\033[0m")
 
         # Creating Language Model according with the method indicated
         if Method.lower() == "mapreduce":
-            self.startMethod = datetime.datetime.now().time().strftime('%H:%M:%S')
+            self.startMethod = tf.calcTimeNow(self)
             print(self.color01 + ">>> " + self.startMethod + "\033[0m" + " Executing MapReduce Method")
             # Executing shell script.
             output = "../data/MapReduce"
             mapReduce = "'python Mapper.py' 'python Reducer.py'"
-            blocksize = "50m"
+            blocksize = "150m"
             reducers = "8"
             shell_command = ["echo 'SampleTokens.pickle' | ../multicore-hdfs/mc-hdfs.sh " + blocksize + " " +
                              reducers + " " + mapReduce + " " + output]
@@ -100,12 +102,12 @@ class GenerateLanguageModel:
                 subprocess.check_call(shell_command, shell=True)
 
         elif Method.lower() == "sequential":
-            self.startMethod = datetime.datetime.now().time().strftime('%H:%M:%S')
+            self.startMethod = tf.calcTimeNow(self)
             print(self.color01 + ">>> " + self.startMethod + "\033[0m" + " Executing Sequential Method")
             Ngram.GenerateNGram(Data=self.TrainData, infoLog=self.infoLog)
 
         else:
-            self.startMethod = datetime.datetime.now().time().strftime('%H:%M:%S')
+            self.startMethod = tf.calcTimeNow(self)
             print(self.color01 + ">>> " + self.startMethod + "\033[0m" + "Error: " +
                   Method + " is not an available method.")
 
@@ -113,8 +115,8 @@ class GenerateLanguageModel:
         startTestData = datetime.datetime.now().time().strftime('%H:%M:%S')
         print(self.color01 + ">>> " + startTestData + "\033[0m" +
               " Creating Test Data", end='', flush=True)
-        self.TestData = self.sampling(Data=Data, output="TestData.pickle", N=N, percent=0.00001)
-        finishTestData = datetime.datetime.now().time().strftime('%H:%M:%S')
+        self.TestData = self.sampling(Data=Data, output="TestData.pickle", N=N, percent=0.0001)
+        finishTestData = tf.calcTimeNow(self)
         TimeElapse = (datetime.datetime.strptime(finishTestData, '%H:%M:%S') -
                       datetime.datetime.strptime(startTestData, '%H:%M:%S'))
         print(self.color01 + " | " + "\033[0m" + "# Sentences: " +
@@ -123,7 +125,7 @@ class GenerateLanguageModel:
               self.color01 + str(TimeElapse) + "\033[0m")
 
 
-GenerateLanguageModel(File="../data/Tokens.pickle", Method="mapreduce", Percent=0.10)
+GenerateLanguageModel(File="../data/Tokens.pickle", Method="sequential", Percent=0.01)
 
 # import profile
 # profile.run('GenerateLanguageModel(File="../data/Tokens.pickle", Method="Sequential", Percent=0.01)')
