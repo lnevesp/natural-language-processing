@@ -34,17 +34,15 @@ class GenerateLanguageModel:
         # Create Model
         self.createModel(File=File, Method=Method, Percent=Percent)
 
-
-        print(self.color01 + "\n>>> " + tf.calcTimeNow(self) + "\033[0m" + " Saving Log")
-
-        # TODO: Save log
-        self.infoLog = pd.DataFrame([self.infoLog])
-        filename = "../data/Log.csv"
-        self.infoLog.to_csv(filename, index=False, encoding='utf-8')
-
         self.infoLog['StopModel'] = tf.calcTimeNow(self)
         self.infoLog['TELanguage'] = (tf.formatTime(self, self.infoLog['StopModel']) -
                                       tf.formatTime(self, self.infoLog['StartModel']))
+
+        # TODO: Save log
+        print(self.color01 + "\n>>> " + tf.calcTimeNow(self) + "\033[0m" + " Saving Log")
+        self.infoLog = pd.DataFrame([self.infoLog])
+        filename = "../data/Log.csv"
+        self.infoLog.to_csv(filename, index=False, encoding='utf-8')
 
         print(self.color01 + "\n>>> " + self.infoLog['StopModel'] + "\033[0m" + " Process Finished" +
               self.color01 + " | " + "\033[0m" + "Time Elapse: " + self.color01 + str(self.infoLog['TELanguage']))
@@ -125,7 +123,7 @@ class GenerateLanguageModel:
               self.color01 + str(TimeElapse) + "\033[0m")
 
 
-GenerateLanguageModel(File="../data/Tokens.pickle", Method="sequential", Percent=0.01)
+GenerateLanguageModel(File="../data/Tokens.pickle", Method="mapreduce", Percent=0.10)
 
 # import profile
 # profile.run('GenerateLanguageModel(File="../data/Tokens.pickle", Method="Sequential", Percent=0.01)')
