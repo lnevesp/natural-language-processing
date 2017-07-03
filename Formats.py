@@ -30,8 +30,8 @@ class TimeFormats:
               " " + phrase)
 
     def StartModel(self, time):
-        print(self.color01 + '  ####################################################')
-        print(self.color01 + '  ##                                                         ##')
+        print(self.color01 + '  ##################################################')
+        print(self.color01 + '  ##                                              ##')
         print(self.color01 + '  ##  ' + "\033[0m" + 'Starting Language Model Generation ' + self.color01 + str(time) + ' ##')
-        print(self.color01 + '  ##                                                         ##')
-        print(self.color01 + '  ####################################################')
+        print(self.color01 + '  ##                                              ##')
+        print(self.color01 + '  ##################################################')
