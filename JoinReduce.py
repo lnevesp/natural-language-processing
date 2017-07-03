@@ -11,6 +11,7 @@ with open(DataPath + "FullNgrams.txt", 'w') as outfile:
             for line in infile:
                 outfile.write(line)
 
+
 # class JoinOutput:
 #     def reading(self):
 #         with open('../MapReduce/reducer-00.txt', 'r') as f:
