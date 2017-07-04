@@ -3,7 +3,7 @@ import re
 import pickle
 import datetime
 import html
-import nltk
+# import nltk
 import sys
 import os.path
 from Formats import TimeFormats as tf
@@ -14,26 +14,25 @@ class CleanCorpus:
 
     def __init__(self, RawCorpus = "../data/RawCorpus.txt", infoLog = defaultdict()):
         self.color01 = "\033[92m"  # Green
-        self.infoLog = infoLog
+        self.infoLog = infoLog  # Log Dataframe
 
-        StartCleanScript = tf.calcTimeNow(self)
-        tf.StartScript(self, time=StartCleanScript, phrase="Starting CleanData.py")
+        StartCleanScript = tf.calcTimeNow(self)  # Save start script time
+        tf.StartScript(self, time=StartCleanScript, phrase="Starting CleanData.py")  # Print start time
 
-        if os.path.isfile("../data/Tokens.pickle") != 1:
+        if os.path.isfile("../data/Tokens.pkl") != 1:  # Check if the file already exists
 
-            self.read_corpora(RawCorpus)
+            self.read_corpora(RawCorpus)  # Read Raw Corpus
 
-            # StopCleanLines = tf.calcTimeNow(self)
             self.infoLog['TECleanLines'] = (tf.formatTime(self, tf.calcTimeNow(self)) -
-                                            tf.formatTime(self, StartCleanScript))
-            tf.timeElapse2(self, self.infoLog['TECleanLines'])
+                                            tf.formatTime(self, StartCleanScript))  # Calculate Time Elapse
+            tf.timeElapse2(self, self.infoLog['TECleanLines'])  # Print time Elapse
 
             StartWriteTokens = tf.calcTimeNow(self)
             tf.timeElapse1(self, time=StartWriteTokens, phrase="Writing Tokens File")
 
             # If the tokens were created then save then into Tokens.pickle file
             if self.Tokens:
-                with open('../data/Tokens.pickle', 'wb') as file:
+                with open('../data/Tokens.pkl', 'wb') as file:
                     pickle.dump(self.Tokens, file, pickle.HIGHEST_PROTOCOL)
             # Print time elapse
             # StopWriteTokens = datetime.datetime.now().time().strftime('%H:%M:%S')
@@ -51,7 +50,7 @@ class CleanCorpus:
         tf.StopScript(self, TimeElapse=self.infoLog['TECleanScript'], phrase="CleanData.py Finished")
 
 
-    def createTokens(self, line, vocab):
+    def createTokens(self, line):
         words_vector = []  # Creates an empty list
         line = html.unescape(line)  # Removes HTML or XML character references and entities.
         line = [x for x in map(str.strip, line.split('.')) if x]  # Splits  Lines on Period
@@ -60,16 +59,10 @@ class CleanCorpus:
             Sentence = Sentence.strip()  # Deletes the /n on each sentence
             Sentence = ''.join(i for i in Sentence if not i.isdigit())  # Remove numbers
             words = word_tokenize(Sentence)  # Convert lines into word vector (tokenizing)
-            words = self.unusual_words(text=words, vocab=vocab)  # Clean the vocabulary
+            # words = self.unusual_words(text=words, vocab=vocab)  # Clean the vocabulary
             words = self.removePunctuation(tokens=words)  # Removes punctuation
             words_vector.append(words)  # Appends the tokens
         return words_vector
-
-    def unusual_words(self, text, vocab):
-        text_vocab = set(w.lower() for w in text if w.isalpha())  # Create a set with the sentence's tokens
-        unusual = text_vocab - vocab  # Save the words that don't belong to the "english vocabulary"
-        Text = text_vocab - unusual  # save the words that belong "english vocabulary"
-        return Text
 
     # Remove Punctuation
     def removePunctuation(self, tokens):
@@ -93,37 +86,10 @@ class CleanCorpus:
         rawCorpus = rawCorpus.readlines()
 
         # Print time elapse
-        # stopReadingCorpus = datetime.datetime.now().time().strftime('%H:%M:%S')
         self.infoLog['TEReadCorpus'] = (tf.formatTime(self, tf.calcTimeNow(self)) -
                                         tf.formatTime(self,startReadingCorpus))
         tf.timeElapse2(self, TimeElapse=self.infoLog['TEReadCorpus'])
 
-
-        """Using nltk corpora to built a large corpus of english words"""
-
-        startVocabulary = tf.calcTimeNow(self)
-        tf.timeElapse1(self, time=startVocabulary, phrase="Creating English Vocabulary Set")
-
-        english_vocab = set(w.lower() for w in nltk.corpus.brown.words())
-        english_vocab = english_vocab.union(set(w.lower() for w in nltk.corpus.reuters.words()))
-        english_vocab = english_vocab.union(set(w.lower() for w in nltk.corpus.words.words()))
-        english_vocab = english_vocab.union(set(w.lower() for w in nltk.corpus.abc.words()))
-        english_vocab = english_vocab.union(set(w.lower() for w in nltk.corpus.genesis.words()))
-        english_vocab = english_vocab.union(set(w.lower() for w in nltk.corpus.gutenberg.words()))
-        english_vocab = english_vocab.union(set(w.lower() for w in nltk.corpus.state_union.words()))
-        english_vocab = english_vocab.union(set(w.lower() for w in nltk.corpus.webtext.words()))
-        english_vocab = english_vocab.union(set(w.lower() for w in nltk.corpus.names.words()))
-        english_vocab = english_vocab.union(set(w.lower() for w in nltk.corpus.movie_reviews.words()))
-        english_vocab = english_vocab.union(set(w.lower() for w in nltk.corpus.wordnet.words()))
-        english_vocab = english_vocab.union(set(w.lower() for w in nltk.corpus.treebank.words()))
-        english_vocab = english_vocab.union(set(w.lower() for w in nltk.corpus.stopwords.words()))
-        english_vocab = english_vocab.union(set(w.lower() for w in nltk.corpus.state_union.words()))
-
-        # Print time elapse
-        # stopVocabulary = datetime.datetime.now().time().strftime('%H:%M:%S')
-        self.infoLog['TEVocabulary'] = (tf.formatTime(self, tf.calcTimeNow(self)) -
-                                        tf.formatTime(self,startVocabulary))
-        tf.timeElapse2(self, TimeElapse=self.infoLog['TEVocabulary'])
 
         self.infoLog['StartCleanLines'] = tf.calcTimeNow(self)
         self.Tokens = []
@@ -136,14 +102,15 @@ class CleanCorpus:
                              self.color01 + str(i) + "/" + str(totalLines) +
                              " (" + str(round((i/totalLines)*100,2)) + "%)" + "\033[0m")
             sys.stdout.flush()
-            LineToken = self.createTokens(line=line, vocab=english_vocab)
+            # LineToken = self.createTokens(line=line, vocab=english_vocab)
+            LineToken = self.createTokens(line=line)
             if LineToken:
                 for line in LineToken:
                     self.Tokens.append(line)
         return(self.Tokens)
 
 
-# CleanCorpus(RawCorpus = "../data/RawCorpus.txt")
+CleanCorpus(RawCorpus="../data/RawCorpus.txt")
 
 
 
