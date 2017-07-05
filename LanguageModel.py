@@ -76,7 +76,7 @@ class GenerateLanguageModel:
         startSampling = tf.calcTimeNow(self)
         print(self.color01 + ">>> " + startSampling + "\033[0m" +
               " Sampling Tokens Data", end='', flush=True)
-        self.TrainData = self.sampling(Data=Data, output="SampleTokens.pickle", N=N, percent=Percent)
+        self.TrainData = self.sampling(Data=Data, output="SampleTokens.pkl", N=N, percent=Percent)
         finishSampling = tf.calcTimeNow(self)
         TimeElapse = (datetime.datetime.strptime(finishSampling, '%H:%M:%S') -
                       datetime.datetime.strptime(startSampling, '%H:%M:%S'))
@@ -91,7 +91,7 @@ class GenerateLanguageModel:
             mapReduce = "'python Mapper.py' 'python Reducer.py'"
             blocksize = "150m"
             reducers = "8"
-            shell_command = ["echo 'SampleTokens.pickle' | ../multicore-hdfs/mc-hdfs.sh " + blocksize + " " +
+            shell_command = ["echo 'SampleTokens.pkl' | ../multicore-hdfs/mc-hdfs.sh " + blocksize + " " +
                              reducers + " " + mapReduce + " " + output]
             if os.path.exists(output):
                 rmtree(output)
@@ -113,7 +113,7 @@ class GenerateLanguageModel:
         startTestData = datetime.datetime.now().time().strftime('%H:%M:%S')
         print(self.color01 + ">>> " + startTestData + "\033[0m" +
               " Creating Test Data", end='', flush=True)
-        self.TestData = self.sampling(Data=Data, output="TestData.pickle", N=N, percent=0.0001)
+        self.TestData = self.sampling(Data=Data, output="TestData.pkl", N=N, percent=0.0001)
         finishTestData = tf.calcTimeNow(self)
         TimeElapse = (datetime.datetime.strptime(finishTestData, '%H:%M:%S') -
                       datetime.datetime.strptime(startTestData, '%H:%M:%S'))
@@ -123,7 +123,7 @@ class GenerateLanguageModel:
               self.color01 + str(TimeElapse) + "\033[0m")
 
 
-GenerateLanguageModel(File="../data/Tokens.pickle", Method="mapreduce", Percent=0.10)
+GenerateLanguageModel(File="../data/Tokens.pkl", Method="mapreduce", Percent=0.15)
 
 # import profile
-# profile.run('GenerateLanguageModel(File="../data/Tokens.pickle", Method="Sequential", Percent=0.01)')
+# profile.run('GenerateLanguageModel(File="../data/Tokens.pkl", Method="Sequential", Percent=0.01)')
