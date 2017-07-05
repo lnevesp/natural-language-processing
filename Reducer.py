@@ -13,7 +13,7 @@ for line in fileinput.input():
 
 for length in ngram_counts:
     for ngram, count in ngram_counts[length].items():
-        print('{},{}'.format(','.join(ngram), count))
+        print('{}\t{}'.format(','.join(ngram), count))
 
 
 # // echo "Word Prediction" | /home/lneves/Dropbox/Data\ Science/Local\ MapReduce/local-mapreduce/lmr 5m 8 'python Mapper.py' 'python Reducer.py' ../data/MapReduceOutput_00001
