@@ -46,6 +46,7 @@ class GenerateNGram:
                 ngramList = list(ngram)
                 ngramList.append(str(count))
                 ngramDict[str(length)].append(ngramList)
+                # TODO: sum count. (copy from JoinReduce.py)
         return ngramDict
 
 
