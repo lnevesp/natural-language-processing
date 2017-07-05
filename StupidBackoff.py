@@ -1,14 +1,14 @@
 import collections
 import math
-from CleanData import CleanCorpus
+# from CleanData import CleanCorpus
 import pandas as pd
 
 
 class StupidBackoff:
 
-    def __init__(self, Phrase):
+    def __init__(self, Phrase, ):
         self.NgramDict()
-
+    # TODO: Read sys.arg[]
     def createTokens(self, line):
         line = line.strip()  # strip /n
         line = line.lower()  # Convert to lowercase
