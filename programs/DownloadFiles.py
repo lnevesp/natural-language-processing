@@ -52,12 +52,12 @@ class CreateCorpus:
 
 
     # Extract files function
-    def extractFunction(self, tar_url, DataPath):
+    def extractFunction(self, compressFile, DataPath):
 
         StartExtract = tf.calcTimeNow(self)
         tf.timeElapse1(self, time=StartExtract, phrase="Extracting Files")
 
-        tar = tarfile.open(tar_url, 'r')
+        tar = tarfile.open(compressFile, 'r')
         for item in tar:
             tar.extract(item, DataPath )
             if item.name.find(".tar.gz") != -1:
@@ -92,8 +92,6 @@ class CreateCorpus:
                         for line in infile:
                             outfile.write(line)
 
-            # Print time elapse
-            # StopWriteCorpus = tf.calcTimeNow(self)
             self.infoLog['TEWriteCorpus'] = (tf.formatTime(self, tf.calcTimeNow(self)) -
                                              tf.formatTime(self, StartWriteCorpus))
             tf.timeElapse2(self, TimeElapse=self.infoLog['TEWriteCorpus'])
@@ -102,4 +100,4 @@ class CreateCorpus:
         self.infoLog['TEWriteCorpus'] = datetime.timedelta(0)
 
 
-# CreateCorpus(DataPath = '../data/')
+# CreateCorpus(DataPath='../data/')

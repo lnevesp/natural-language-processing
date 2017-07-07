@@ -3,7 +3,6 @@ import re
 import pickle
 import datetime
 import html
-# import nltk
 import sys
 import os.path
 from Formats import TimeFormats as tf
@@ -49,6 +48,16 @@ class CleanCorpus:
         self.infoLog['TECleanScript']=(tf.formatTime(self, tf.calcTimeNow(self))-tf.formatTime(self, StartCleanScript))
         tf.StopScript(self, TimeElapse=self.infoLog['TECleanScript'], phrase="CleanData.py Finished")
 
+    # Remove Punctuation
+    def removePunctuation(self, tokens):
+        regex = re.compile('[^a-zA-Z]')
+
+        words_vector_RP = []
+        for token in tokens:
+            cleanToken = regex.sub('', token)
+            if cleanToken:
+                words_vector_RP.append(cleanToken)
+        return(words_vector_RP)
 
     def createTokens(self, line):
         words_vector = []  # Creates an empty list
@@ -63,18 +72,6 @@ class CleanCorpus:
             words = self.removePunctuation(tokens=words)  # Removes punctuation
             words_vector.append(words)  # Appends the tokens
         return words_vector
-
-    # Remove Punctuation
-    def removePunctuation(self, tokens):
-        regex = re.compile('[^a-zA-Z]')
-
-        words_vector_RP = []
-        for token in tokens:
-            cleanToken = regex.sub('', token)
-            if cleanToken:
-                words_vector_RP.append(cleanToken)
-
-        return(words_vector_RP)
 
     """Read the Raw Corpus, returns all sentences tokenized and cleaned"""
     def read_corpora(self, RawCorpus):
@@ -110,7 +107,7 @@ class CleanCorpus:
         return(self.Tokens)
 
 
-CleanCorpus(RawCorpus="../data/RawCorpus.txt")
+# CleanCorpus(RawCorpus="../data/RawCorpus.txt")
 
 
 

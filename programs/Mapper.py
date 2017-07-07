@@ -2,18 +2,13 @@
 
 from collections import Counter
 import pickle
-import datetime
 
-# time = datetime.datetime.now().time().strftime('%H:%M:%S')
-# print("Starting Mapper" + time)
-
-def createNgram( words, length):
-    return zip(*[words[i:] for i in range(length)])
+def createNgram( words, ngram):
+    return zip(*[words[i:] for i in range(ngram)])
 
 with open('../data/SampleTokens.pkl', "rb") as file:  # Unpickling
     TokensData = pickle.load(file)
 
-# print("Starting MAPREDUCE! " + time)
 for line in TokensData:
     for n in range(1, 6):
         ngrams_counts = Counter(createNgram(line, n))

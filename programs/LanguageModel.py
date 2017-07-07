@@ -23,8 +23,6 @@ class GenerateLanguageModel:
         self.color01 = "\033[92m" # Green
         tf.StartModel(self, self.infoLog['StartModel'])
 
-        # print(self.color01 + ">>> " + self.infoLog['startModel'] + "\033[0m" + " Starting Language Model Generation")
-
         # Download Files
         DownloadFiles.CreateCorpus(DataPath = '../data/', infoLog = self.infoLog)
 
@@ -44,17 +42,15 @@ class GenerateLanguageModel:
         filename = "../data/Log.csv"
         self.infoLog.to_csv(filename, index=False, encoding='utf-8')
 
-        print(self.color01 + "\n>>> " + self.infoLog['StopModel'] + "\033[0m" + " Process Finished" +
-              self.color01 + " | " + "\033[0m" + "Time Elapse: " + self.color01 + str(self.infoLog['TELanguage']))
+        print(self.color01 + ">>> " + self.infoLog['StopModel'] + "\033[0m" + " Process Finished")
 
-        print(self.infoLog)
 
-    def sampling(self, Data, output, N,  percent):
+    def sampling(self, Data, output, N,  percent, seed):
 
         n = int(round(N*percent, 0))  # Sample Size
         self.infoLog['SampleSize'] = n
         self.infoLog['SampleRate'] = percent
-        random.seed(123)  # Set Seed
+        random.seed(seed)  # Set Seed
         SampleData = [Data[i] for i in sorted(random.sample(range(N), n))]
         with open('../data/' + output, 'wb') as file:
             pickle.dump(SampleData, file, pickle.HIGHEST_PROTOCOL)
@@ -76,7 +72,7 @@ class GenerateLanguageModel:
         startSampling = tf.calcTimeNow(self)
         print(self.color01 + ">>> " + startSampling + "\033[0m" +
               " Sampling Tokens Data", end='', flush=True)
-        self.TrainData = self.sampling(Data=Data, output="SampleTokens.pkl", N=N, percent=Percent)
+        self.TrainData = self.sampling(Data=Data, output="SampleTokens.pkl", N=N, percent=Percent, seed=1272)
         finishSampling = tf.calcTimeNow(self)
         TimeElapse = (datetime.datetime.strptime(finishSampling, '%H:%M:%S') -
                       datetime.datetime.strptime(startSampling, '%H:%M:%S'))
@@ -91,7 +87,7 @@ class GenerateLanguageModel:
             mapReduce = "'python Mapper.py' 'python Reducer.py'"
             blocksize = "150m"
             reducers = "8"
-            shell_command = ["echo 'SampleTokens.pkl' | ../multicore-hdfs/mc-hdfs.sh " + blocksize + " " +
+            shell_command = ["echo 'SampleTokens.pkl' | ./mc-hdfs.sh " + blocksize + " " +
                              reducers + " " + mapReduce + " " + output]
             if os.path.exists(output):
                 rmtree(output)
@@ -113,7 +109,7 @@ class GenerateLanguageModel:
         startTestData = datetime.datetime.now().time().strftime('%H:%M:%S')
         print(self.color01 + ">>> " + startTestData + "\033[0m" +
               " Creating Test Data", end='', flush=True)
-        self.TestData = self.sampling(Data=Data, output="TestData.pkl", N=N, percent=0.0001)
+        self.TestData = self.sampling(Data=Data, output="TestData.pkl", N=N, percent=0.0001, seed=547)
         finishTestData = tf.calcTimeNow(self)
         TimeElapse = (datetime.datetime.strptime(finishTestData, '%H:%M:%S') -
                       datetime.datetime.strptime(startTestData, '%H:%M:%S'))
@@ -123,7 +119,7 @@ class GenerateLanguageModel:
               self.color01 + str(TimeElapse) + "\033[0m")
 
 
-GenerateLanguageModel(File="../data/Tokens.pkl", Method="mapreduce", Percent=0.15)
+GenerateLanguageModel(File="../data/Tokens.pkl", Method="MapReduce", Percent=0.15)
 
 # import profile
 # profile.run('GenerateLanguageModel(File="../data/Tokens.pkl", Method="Sequential", Percent=0.01)')
