@@ -3,14 +3,15 @@ import tarfile
 import os.path
 import glob
 import datetime
+import pandas as pd
 from collections import defaultdict
 # from Formats import OutputFormats as of
 import Formats as of
-
+import numpy as np
 
 class CreateCorpus:
 
-    def __init__(self, DataPath = '../data/', infoLog = defaultdict(list)):
+    def __init__(self, DataPath = '../data/', infoLog = pd.DataFrame(np.array([["0001"]]), columns=['ProcessID'])):
         # self.color01 = "\033[92m"  # Values Print Color: Green
         self.infoLog = infoLog  # Log Dictionary
         # self.DataPath = '../data/'
@@ -43,6 +44,9 @@ class CreateCorpus:
         # Print Final Time
         self.infoLog['TEDownloadScript'] = of.evalElapse(StartScript)
         of.EndScript(start=StartScript, phrase="DownloadFiles.py Finished")
+
+        print(self.infoLog)
+
 
     # Check if the files are already downloaded, if not it download it
     def download(self, DataPath, File, URL="https://www.dropbox.com/s/hbmn0rbkujnxqrt/ANC_Corpora.tar.gz?dl=1"):
