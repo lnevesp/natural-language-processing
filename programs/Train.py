@@ -4,7 +4,7 @@ import pandas as pd
 from Formats import TimeFormats as tf
 
 # import os
-# os.chdir("/home/lneves/Dropbox/Data Science/University Of Turin/Databases and Algorithms/Algorithms/Project/Version 0.3/python")
+# os.chdir("/home/lneves/Dropbox/Data Science/Projects/Natural Language Process/StupidBackoff_Python/programs")
 
 class RunStupidBackoff:
     def __init__(self):

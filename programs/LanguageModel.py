@@ -119,7 +119,7 @@ class GenerateLanguageModel:
               self.color01 + str(TimeElapse) + "\033[0m")
 
 
-GenerateLanguageModel(File="../data/Tokens.pkl", Method="MapReduce", Percent=0.15)
+GenerateLanguageModel(File="../data/Tokens.pkl", Method="map", Percent=0.01)
 
 # import profile
 # profile.run('GenerateLanguageModel(File="../data/Tokens.pkl", Method="Sequential", Percent=0.01)')
