@@ -4,8 +4,6 @@ import os.path
 import glob
 import datetime
 import pandas as pd
-from collections import defaultdict
-# from Formats import OutputFormats as of
 import Formats as of
 import numpy as np
 
@@ -45,7 +43,7 @@ class CreateCorpus:
         self.infoLog['TEDownloadScript'] = of.evalElapse(StartScript)
         of.EndScript(start=StartScript, phrase="DownloadFiles.py Finished")
 
-        print(self.infoLog)
+        # print(self.infoLog)
 
 
     # Check if the files are already downloaded, if not it download it

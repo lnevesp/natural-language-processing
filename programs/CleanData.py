@@ -1,54 +1,70 @@
 from nltk.tokenize import word_tokenize
 import re
 import pickle
-import datetime
 import html
 import sys
 import os.path
-from Formats import TimeFormats as tf
-from collections import defaultdict
+import Formats as of
+import pandas as pd
+import numpy as np
 
 
 class CleanCorpus:
 
-    def __init__(self, RawCorpus = "../data/RawCorpus.txt", infoLog = defaultdict()):
+    def __init__(self, Corpus = "../data/Corpus.txt", infoLog = pd.DataFrame(np.array([["0001"]]), columns=['ProcessID'])):
         self.color01 = "\033[92m"  # Green
         self.infoLog = infoLog  # Log Dataframe
 
-        StartCleanScript = tf.calcTimeNow(self)  # Save start script time
-        tf.StartScript(self, time=StartCleanScript, phrase="Starting CleanData.py")  # Print start time
+        # Print Start Time
+        StartScript = of.calcTime()
+        of.StartScript(time=StartScript, phrase="Running CleanData.py")
 
-        if os.path.isfile("../data/Tokens.pkl") != 1:  # Check if the file already exists
-
-            self.read_corpora(RawCorpus)  # Read Raw Corpus
-
-            self.infoLog['TECleanLines'] = (tf.formatTime(self, tf.calcTimeNow(self)) -
-                                            tf.formatTime(self, StartCleanScript))  # Calculate Time Elapse
-            tf.timeElapse2(self, self.infoLog['TECleanLines'])  # Print time Elapse
-
-            StartWriteTokens = tf.calcTimeNow(self)
-            tf.timeElapse1(self, time=StartWriteTokens, phrase="Writing Tokens File")
-
-            # If the tokens were created then save then into Tokens.pickle file
-            if self.Tokens:
-                with open('../data/Tokens.pkl', 'wb') as file:
-                    pickle.dump(self.Tokens, file, pickle.HIGHEST_PROTOCOL)
-            # Print time elapse
-            # StopWriteTokens = datetime.datetime.now().time().strftime('%H:%M:%S')
-            self.infoLog['TEWriteTokens'] = (tf.formatTime(self, tf.calcTimeNow(self)) -
-                                             tf.formatTime(self, StartWriteTokens))
-            tf.timeElapse2(self, TimeElapse=self.infoLog['TEWriteTokens'])
-
+        if os.path.isfile("../data/Corpus.txt") != 1:
+            of.NormalMessage(phrase="Corpus.txt not created. Please, run DownloadFiles.py")
         else:
-            tf.NormalMessage(self, phrase="Tokens already created")
-            self.infoLog['TEWriteTokens'] = datetime.timedelta(0)
+            # Read Corpus =============================================================================================+
+            StartTime = of.calcTime()
+            of.ElapseStart(time=StartTime, phrase="Reading Corpus")
+
+            Corpus = open(Corpus)
+            Corpus = Corpus.readlines()
+            self.infoLog['Corpus_Lines'] = int(len(Corpus))
+
+            # Print time elapse
+            self.infoLog['Time_download'] = of.evalElapse(start=StartTime)
+            of.ElapseEnd(start=StartTime)
+
+            if os.path.isfile("../data/Tokens.pkl") != 1:  # Check if the file already exists
+
+                # Create Corpus =======================================================================================+
+                StartTime = of.calcTime()
+                self.cleanCorpus(Corpus)  # Read Raw Corpus
+
+                self.infoLog['Time_cleanCorpus'] = of.evalElapse(start=StartTime)  # Calculate Time Elapse
+                of.ElapseEnd(start=StartTime)  # Print time Elapse
+
+                # Write Corpus Corpus =================================================================================+
+                StartTime = of.calcTime()
+                of.ElapseStart(time=StartTime, phrase="Writing Tokens File")
+
+                # If the tokens were created then save then into Tokens.pkl file ======================================+
+                if self.Tokens:
+                    with open('../data/Tokens.pkl', 'wb') as file:
+                        pickle.dump(self.Tokens, file, pickle.HIGHEST_PROTOCOL)
+                # Print time elapse
+                self.infoLog['Time_writetokens'] = of.evalElapse(start=StartTime)
+                of.ElapseEnd(start=StartTime)
+
+            else:
+                of.NormalMessage(phrase="Tokens already created")
+                self.infoLog['Time_writetokens'] = None
 
         # Print Final Time
-        # StopCleanScript = tf.calcTimeNow(self)
-        self.infoLog['TECleanScript']=(tf.formatTime(self, tf.calcTimeNow(self))-tf.formatTime(self, StartCleanScript))
-        tf.StopScript(self, TimeElapse=self.infoLog['TECleanScript'], phrase="CleanData.py Finished")
+        self.infoLog['Time_CleanScript']=of.evalElapse(start=StartScript)
+        of.EndScript(start=StartScript, phrase="CleanData.py Finished")
+        print(self.infoLog)
 
-    # Remove Punctuation
+    # Function: Remove Punctuation ------------------------------------------------------------------------------------+
     def removePunctuation(self, tokens):
         regex = re.compile('[^a-zA-Z]')
 
@@ -57,8 +73,9 @@ class CleanCorpus:
             cleanToken = regex.sub('', token)
             if cleanToken:
                 words_vector_RP.append(cleanToken)
-        return(words_vector_RP)
+        return words_vector_RP
 
+    # Function: Create Tokens for each line ---------------------------------------------------------------------------+
     def createTokens(self, line):
         words_vector = []  # Creates an empty list
         line = html.unescape(line)  # Removes HTML or XML character references and entities.
@@ -73,41 +90,29 @@ class CleanCorpus:
             words_vector.append(words)  # Appends the tokens
         return words_vector
 
+    # Function: Clean Data --------------------------------------------------------------------------------------------+
     """Read the Raw Corpus, returns all sentences tokenized and cleaned"""
-    def read_corpora(self, RawCorpus):
-        # Print start download time
-        startReadingCorpus = tf.calcTimeNow(self)
-        tf.timeElapse1(self, time=startReadingCorpus, phrase="Reading Corpus")
-
-        rawCorpus = open(RawCorpus)
-        rawCorpus = rawCorpus.readlines()
-
-        # Print time elapse
-        self.infoLog['TEReadCorpus'] = (tf.formatTime(self, tf.calcTimeNow(self)) -
-                                        tf.formatTime(self,startReadingCorpus))
-        tf.timeElapse2(self, TimeElapse=self.infoLog['TEReadCorpus'])
-
-
-        self.infoLog['StartCleanLines'] = tf.calcTimeNow(self)
+    def cleanCorpus(self, Corpus):
+        StartTime = of.calcTime()
         self.Tokens = []
         i = 0
-        totalLines = len(rawCorpus)
-        for line in rawCorpus:
+        TotalLines = len(Corpus)
+        for line in Corpus:
             i += 1
-            sys.stdout.write("\r" + self.color01 + ">>>  " + self.infoLog['StartCleanLines'] + "\033[0m" +
+            sys.stdout.write("\r" + self.color01 + ">>>  " + StartTime + "\033[0m" +
                              " Cleaning Data" + self.color01 + " | " + "\033[0m" + "Line: " +
-                             self.color01 + str(i) + "/" + str(totalLines) +
-                             " (" + str(round((i/totalLines)*100,2)) + "%)" + "\033[0m")
+                             self.color01 + str(i) + "/" + str(TotalLines) +
+                             " (" + str(round((i/TotalLines)*100, 2)) + "%)" + "\033[0m")
             sys.stdout.flush()
             # LineToken = self.createTokens(line=line, vocab=english_vocab)
             LineToken = self.createTokens(line=line)
             if LineToken:
                 for line in LineToken:
                     self.Tokens.append(line)
-        return(self.Tokens)
+        return self.Tokens
 
 
-# CleanCorpus(RawCorpus="../data/RawCorpus.txt")
+CleanCorpus(Corpus="../data/Corpus.txt")
 
 
 
