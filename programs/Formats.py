@@ -1,6 +1,5 @@
 import datetime
 
-
     # Returns the present time and format it
 def calcTime():
     return datetime.datetime.now().time().strftime('%H:%M:%S')

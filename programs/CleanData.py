@@ -8,6 +8,8 @@ import Formats as of
 import pandas as pd
 import numpy as np
 
+# TODO:
+# 1. Dump in *.txt
 
 class CleanCorpus:
 
