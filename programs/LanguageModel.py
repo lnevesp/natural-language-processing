@@ -83,6 +83,7 @@ class GenerateLanguageModel:
             self.startMethod = tf.calcTimeNow(self)
             print(self.color01 + ">>> " + self.startMethod + "\033[0m" + " Executing MapReduce Method")
             # Executing shell script.
+            # TODO: Read Data from argument instead of hardcoded
             output = "../data/MapReduce"
             mapReduce = "'python Mapper.py' 'python Reducer.py'"
             blocksize = "150m"
@@ -109,7 +110,7 @@ class GenerateLanguageModel:
         startTestData = datetime.datetime.now().time().strftime('%H:%M:%S')
         print(self.color01 + ">>> " + startTestData + "\033[0m" +
               " Creating Test Data", end='', flush=True)
-        self.TestData = self.sampling(Data=Data, output="TestData.pkl", N=N, percent=0.0001, seed=547)
+        self.TestData = self.sampling(Data=Data, output="TestData.pkl", N=N, percent=0.01, seed=547)
         finishTestData = tf.calcTimeNow(self)
         TimeElapse = (datetime.datetime.strptime(finishTestData, '%H:%M:%S') -
                       datetime.datetime.strptime(startTestData, '%H:%M:%S'))
@@ -119,7 +120,4 @@ class GenerateLanguageModel:
               self.color01 + str(TimeElapse) + "\033[0m")
 
 
-GenerateLanguageModel(File="../data/Tokens.pkl", Method="map", Percent=0.01)
-
-# import profile
-# profile.run('GenerateLanguageModel(File="../data/Tokens.pkl", Method="Sequential", Percent=0.01)')
+GenerateLanguageModel(File="../data/Tokens.pkl", Method="mapreduce", Percent=0.30)
