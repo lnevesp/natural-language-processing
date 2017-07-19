@@ -6,6 +6,7 @@ import pickle
 def createNgram( words, ngram):
     return zip(*[words[i:] for i in range(ngram)])
 
+# TODO: Change the "Read From" to select the argument
 with open('../data/SampleTokens.pkl', "rb") as file:  # Unpickling
     TokensData = pickle.load(file)
 
