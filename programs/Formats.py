@@ -1,6 +1,5 @@
 import datetime
 
-    # Returns the present time and format it
 def calcTime():
     return datetime.datetime.now().time().strftime('%H:%M:%S')
 
@@ -43,7 +42,7 @@ def NormalMessage(phrase):
     color01 = "\033[92m"
     print(color01 + ">>>  " + calcTime() + "\033[0m" + " " + phrase)
 
-# Beginning of Procedure
+# Beginning of Procedure Improve this
 def StartModel(phrase, time, k=60):
     color01 = "\033[92m"
     length = len(phrase)
