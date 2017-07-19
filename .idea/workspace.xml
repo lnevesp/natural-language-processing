@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="55a75503-7b8c-4d20-8823-5d4121f73a4f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/programs/Mapper.py" afterPath="$PROJECT_DIR$/programs/Mapper.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/programs/mc-hdfs.sh" afterPath="$PROJECT_DIR$/programs/mc-hdfs.sh" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -35,11 +35,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Mapper.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Mapper.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/programs/Mapper.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="16" column="58" lean-forward="true" selection-start-line="16" selection-start-column="58" selection-end-line="16" selection-end-column="58" />
+            <state relative-caret-position="252">
+              <caret line="14" column="53" lean-forward="true" selection-start-line="14" selection-start-column="53" selection-end-line="14" selection-end-column="53" />
               <folding>
                 <element signature="e#23#54#0" expanded="true" />
               </folding>
@@ -47,11 +47,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mc-hdfs.sh" pinned="false" current-in-tab="false">
+      <file leaf-file-name="mc-hdfs.sh" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/programs/mc-hdfs.sh">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1332">
-              <caret line="74" column="20" lean-forward="false" selection-start-line="74" selection-start-column="20" selection-end-line="74" selection-end-column="20" />
+            <state relative-caret-position="324">
+              <caret line="45" column="19" lean-forward="true" selection-start-line="45" selection-start-column="19" selection-end-line="45" selection-end-column="19" />
               <folding />
             </state>
           </provider>
@@ -128,6 +128,7 @@
         <option value="$PROJECT_DIR$/programs/DownloadFiles.py" />
         <option value="$PROJECT_DIR$/programs/LanguageModel.py" />
         <option value="$PROJECT_DIR$/programs/Mapper.py" />
+        <option value="$PROJECT_DIR$/programs/mc-hdfs.sh" />
       </list>
     </option>
   </component>
@@ -677,14 +678,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/dklafj" />
-    <entry file="file://$PROJECT_DIR$/programs/mc-hdfs.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1332">
-          <caret line="74" column="20" lean-forward="false" selection-start-line="74" selection-start-column="20" selection-end-line="74" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/programs/CleanData.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="540">
@@ -738,11 +731,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/programs/Mapper.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="16" column="58" lean-forward="true" selection-start-line="16" selection-start-column="58" selection-end-line="16" selection-end-column="58" />
+        <state relative-caret-position="252">
+          <caret line="14" column="53" lean-forward="true" selection-start-line="14" selection-start-column="53" selection-end-line="14" selection-end-column="53" />
           <folding>
             <element signature="e#23#54#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/programs/mc-hdfs.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="45" column="19" lean-forward="true" selection-start-line="45" selection-start-column="19" selection-end-line="45" selection-end-column="19" />
+          <folding />
         </state>
       </provider>
     </entry>

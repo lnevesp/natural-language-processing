@@ -47,7 +47,6 @@ START_TIME=$(timer)
 
 HASHING_SCRIPT=`mktemp hashing.py.XXXX`
 echo hashing script $HASHING_SCRIPT
-# trap 'rm -r "$HASHING_SCRIPT"' SIGHUP SIGINT SIGTERM
 TEMPDIR=`mktemp -d mapper_tmp.XXXX`
 {
     echo $' \e[1;32m>>>\e[m' Temporary output directory for mapper created: $'\e[1;32m'$TEMPDIR$'\e[m'
