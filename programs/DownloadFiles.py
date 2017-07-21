@@ -87,4 +87,4 @@ class CreateCorpus:
         self.infoLog['Time_createCorpus'] = of.evalElapse(start=StartTime)
         of.ElapseEnd(start=StartTime)
 
-# CreateCorpus(DataPath='../data/')
+CreateCorpus(DataPath='../data/')
