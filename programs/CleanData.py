@@ -114,7 +114,7 @@ class CleanCorpus:
         return self.Tokens
 
 
-CleanCorpus(Corpus="../data/Corpus.txt")
+# CleanCorpus(Corpus="../data/Corpus.txt")
 
 
 
