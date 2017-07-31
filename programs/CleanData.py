@@ -27,10 +27,10 @@ class CleanCorpus:
 
             Corpus = open(Corpus)
             Corpus = Corpus.readlines()
-            self.infoLog['Corpus_Lines'] = int(len(Corpus))
+            self.infoLog['Count_CorpusLines'] = int(len(Corpus))
 
             # Print time elapse
-            self.infoLog['Time_Read'] = of.evalElapse(start=StartTime)
+            self.infoLog['Time_ReadCorpus'] = of.evalElapse(start=StartTime)
             of.ElapseEnd(start=StartTime)
 
             if os.path.isfile("../data/Tokens.txt") != 1:  # Check if the file already exists
@@ -44,9 +44,10 @@ class CleanCorpus:
 
             else:
                 of.NormalMessage(phrase="Tokens already created")
-                self.infoLog['TokensSize'] = round(os.path.getsize("../data/Tokens.txt") / (1024 * 1024.0), 2)
+                self.infoLog['FileSize_Tokens'] = round(os.path.getsize("../data/Tokens.txt") / (1024 * 1024.0), 2)
+                self.infoLog["Count_WordTokens"] = None
                 self.infoLog['Time_cleanCorpus'] = None
-                self.infoLog['Time_Read'] = None
+                self.infoLog['Time_ReadCorpus'] = None
 
             # Print Final Time
         self.infoLog['Time_CleanScript']=of.evalElapse(start=StartScript)
@@ -83,7 +84,7 @@ class CleanCorpus:
     def cleanCorpus(self, Corpus):
         StartTime = of.calcTime()
         self.Tokens = []
-        self.infoLog["CountWordTokens"] = 0
+        self.infoLog["Count_WordTokens"] = 0
         i = 0
         TotalLines = len(Corpus)
         with open("../data/Tokens.txt", 'w') as outfile:
@@ -97,8 +98,11 @@ class CleanCorpus:
                 LineToken = self.createTokens(line=line)
                 if LineToken:
                     for line in LineToken:
-                        line = ','.join(map(str, line))
-                        outfile.write(line)
+                        wordcount = len(line)
+                        self.infoLog["Count_WordTokens"] += wordcount
+                        if wordcount > 0:
+                            line = ','.join(map(str, line))
+                            outfile.write(str(line+"\n"))
 
 CleanCorpus(Corpus="../data/Corpus.txt")
 

@@ -2,10 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="55a75503-7b8c-4d20-8823-5d4121f73a4f" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/data/.~lock.Log.csv#" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/programs/CleanData.py" afterPath="$PROJECT_DIR$/programs/CleanData.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/programs/DownloadFiles.py" afterPath="$PROJECT_DIR$/programs/DownloadFiles.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/programs/LanguageModel.py" afterPath="$PROJECT_DIR$/programs/LanguageModel.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/programs/Run.sh" afterPath="$PROJECT_DIR$/programs/Run.sh" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/programs/Ngram.py" afterPath="$PROJECT_DIR$/programs/Ngram.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/programs/Train.py" afterPath="$PROJECT_DIR$/programs/Train.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -19,21 +22,21 @@
       <file leaf-file-name="DownloadFiles.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/programs/DownloadFiles.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="37" column="12" lean-forward="true" selection-start-line="37" selection-start-column="12" selection-end-line="37" selection-end-column="104" />
+            <state relative-caret-position="336">
+              <caret line="87" column="39" lean-forward="false" selection-start-line="87" selection-start-column="39" selection-end-line="87" selection-end-column="39" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
-                <marker date="1501466145223" expanded="true" signature="160:193" ph="..." />
+                <marker date="1501485515155" expanded="true" signature="160:193" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CleanData.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CleanData.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/programs/CleanData.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="38" column="37" lean-forward="true" selection-start-line="38" selection-start-column="37" selection-end-line="38" selection-end-column="37" />
+            <state relative-caret-position="390">
+              <caret line="104" column="57" lean-forward="false" selection-start-line="104" selection-start-column="57" selection-end-line="104" selection-end-column="57" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -44,8 +47,8 @@
       <file leaf-file-name="LanguageModel.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/programs/LanguageModel.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="26" column="24" lean-forward="false" selection-start-line="26" selection-start-column="24" selection-end-line="26" selection-end-column="24" />
+            <state relative-caret-position="358">
+              <caret line="157" column="60" lean-forward="false" selection-start-line="157" selection-start-column="60" selection-end-line="157" selection-end-column="60" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -53,13 +56,35 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="StupidBackoff.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/programs/StupidBackoff.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="354">
+              <caret line="64" column="38" lean-forward="false" selection-start-line="64" selection-start-column="38" selection-end-line="64" selection-end-column="38" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="Mapper.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/programs/Mapper.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="14" column="53" lean-forward="false" selection-start-line="14" selection-start-column="53" selection-end-line="14" selection-end-column="53" />
+            <state relative-caret-position="288">
+              <caret line="16" column="48" lean-forward="false" selection-start-line="16" selection-start-column="48" selection-end-line="16" selection-end-column="48" />
               <folding>
                 <element signature="e#23#54#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Ngram.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/programs/Ngram.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="378">
+              <caret line="45" column="46" lean-forward="false" selection-start-line="45" selection-start-column="46" selection-end-line="45" selection-end-column="46" />
+              <folding>
+                <element signature="e#0#19#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -68,8 +93,8 @@
       <file leaf-file-name="mc-hdfs.sh" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/programs/mc-hdfs.sh">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="810">
-              <caret line="45" column="19" lean-forward="false" selection-start-line="45" selection-start-column="19" selection-end-line="45" selection-end-column="19" />
+            <state relative-caret-position="289">
+              <caret line="77" column="35" lean-forward="false" selection-start-line="77" selection-start-column="35" selection-end-line="77" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -78,8 +103,8 @@
       <file leaf-file-name="Formats.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/programs/Formats.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
-              <caret line="30" column="40" lean-forward="false" selection-start-line="30" selection-start-column="40" selection-end-line="30" selection-end-column="40" />
+            <state relative-caret-position="448">
+              <caret line="25" column="41" lean-forward="false" selection-start-line="25" selection-start-column="38" selection-end-line="25" selection-end-column="41" />
               <folding />
             </state>
           </provider>
@@ -95,12 +120,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Train.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Train.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/programs/Train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="18" column="46" lean-forward="false" selection-start-line="18" selection-start-column="46" selection-end-line="18" selection-end-column="46" />
-              <folding />
+            <state relative-caret-position="108">
+              <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#20#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -118,6 +145,13 @@
     <findStrings>
       <find>self</find>
       <find>Corpus_Lines</find>
+      <find>tf.</find>
+      <find>TrainData</find>
+      <find>File</find>
+      <find>self.infoLog['Start_LanguageModel']</find>
+      <find>Time_LanguageModel</find>
+      <find>generateNgram</find>
+      <find>Count_SampleTrainLines</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -126,15 +160,16 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/programs/Train.py" />
         <option value="$PROJECT_DIR$/programs/asdf.py" />
         <option value="$PROJECT_DIR$/programs/Mapper.py" />
         <option value="$PROJECT_DIR$/programs/mc-hdfs.sh" />
         <option value="$PROJECT_DIR$/programs/Formats.py" />
-        <option value="$PROJECT_DIR$/programs/LanguageModel.py" />
         <option value="$PROJECT_DIR$/programs/Run.sh" />
         <option value="$PROJECT_DIR$/programs/DownloadFiles.py" />
         <option value="$PROJECT_DIR$/programs/CleanData.py" />
+        <option value="$PROJECT_DIR$/programs/Ngram.py" />
+        <option value="$PROJECT_DIR$/programs/LanguageModel.py" />
+        <option value="$PROJECT_DIR$/programs/Train.py" />
       </list>
     </option>
   </component>
@@ -214,7 +249,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.CleanData">
+  <component name="RunManager" selected="Python.Train">
     <configuration name="CleanData" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -266,16 +301,54 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
     </configuration>
-    <list size="3">
+    <configuration name="Ngram" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/programs" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="StupidBackoff_Python" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/programs/Ngram.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+    </configuration>
+    <configuration name="Train" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/programs" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="StupidBackoff_Python" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/programs/Train.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+    </configuration>
+    <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.LanguageModel" />
       <item index="1" class="java.lang.String" itemvalue="Python.DownloadFiles" />
       <item index="2" class="java.lang.String" itemvalue="Python.CleanData" />
+      <item index="3" class="java.lang.String" itemvalue="Python.Ngram" />
+      <item index="4" class="java.lang.String" itemvalue="Python.Train" />
     </list>
     <recent_temporary>
-      <list size="3">
-        <item index="0" class="java.lang.String" itemvalue="Python.CleanData" />
-        <item index="1" class="java.lang.String" itemvalue="Python.DownloadFiles" />
-        <item index="2" class="java.lang.String" itemvalue="Python.LanguageModel" />
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="Python.Train" />
+        <item index="1" class="java.lang.String" itemvalue="Python.LanguageModel" />
+        <item index="2" class="java.lang.String" itemvalue="Python.Ngram" />
+        <item index="3" class="java.lang.String" itemvalue="Python.CleanData" />
+        <item index="4" class="java.lang.String" itemvalue="Python.DownloadFiles" />
       </list>
     </recent_temporary>
   </component>
@@ -293,7 +366,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="57" y="-4" width="1865" height="1092" extended-state="6" />
+    <frame x="57" y="-4" width="1863" height="1084" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2135388" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -324,18 +397,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/programs/DownloadFiles.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1116">
-          <caret line="69" column="24" lean-forward="false" selection-start-line="69" selection-start-column="24" selection-end-line="69" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-            <marker date="1501466145223" expanded="true" signature="160:193" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/programs/asdf.py" />
     <entry file="file://$PROJECT_DIR$/programs/mc-hdfs.sh">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1332">
@@ -368,7 +429,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
           <caret line="18" column="46" lean-forward="false" selection-start-line="18" selection-start-column="46" selection-end-line="18" selection-end-column="46" />
-          <folding />
+          <folding>
+            <element signature="e#0#20#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -386,7 +449,7 @@
           <caret line="69" column="24" lean-forward="false" selection-start-line="69" selection-start-column="24" selection-end-line="69" selection-end-column="24" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
-            <marker date="1501466145223" expanded="true" signature="160:193" ph="..." />
+            <marker date="1501485515155" expanded="true" signature="160:193" ph="..." />
           </folding>
         </state>
       </provider>
@@ -424,7 +487,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
           <caret line="18" column="46" lean-forward="false" selection-start-line="18" selection-start-column="46" selection-end-line="18" selection-end-column="46" />
-          <folding />
+          <folding>
+            <element signature="e#0#20#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -442,7 +507,7 @@
           <caret line="69" column="24" lean-forward="false" selection-start-line="69" selection-start-column="24" selection-end-line="69" selection-end-column="24" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
-            <marker date="1501466145223" expanded="true" signature="160:193" ph="..." />
+            <marker date="1501485515155" expanded="true" signature="160:193" ph="..." />
           </folding>
         </state>
       </provider>
@@ -480,7 +545,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
           <caret line="18" column="46" lean-forward="false" selection-start-line="18" selection-start-column="46" selection-end-line="18" selection-end-column="46" />
-          <folding />
+          <folding>
+            <element signature="e#0#20#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -498,7 +565,7 @@
           <caret line="69" column="24" lean-forward="false" selection-start-line="69" selection-start-column="24" selection-end-line="69" selection-end-column="24" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
-            <marker date="1501466145223" expanded="true" signature="160:193" ph="..." />
+            <marker date="1501485515155" expanded="true" signature="160:193" ph="..." />
           </folding>
         </state>
       </provider>
@@ -526,7 +593,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
           <caret line="18" column="46" lean-forward="false" selection-start-line="18" selection-start-column="46" selection-end-line="18" selection-end-column="46" />
-          <folding />
+          <folding>
+            <element signature="e#0#20#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -544,7 +613,7 @@
           <caret line="38" column="12" lean-forward="false" selection-start-line="38" selection-start-column="12" selection-end-line="38" selection-end-column="61" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
-            <marker date="1501466145223" expanded="true" signature="160:193" ph="..." />
+            <marker date="1501485515155" expanded="true" signature="160:193" ph="..." />
           </folding>
         </state>
       </provider>
@@ -561,7 +630,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
           <caret line="18" column="46" lean-forward="false" selection-start-line="18" selection-start-column="46" selection-end-line="18" selection-end-column="46" />
-          <folding />
+          <folding>
+            <element signature="e#0#20#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -581,7 +652,7 @@
           <caret line="38" column="12" lean-forward="false" selection-start-line="38" selection-start-column="12" selection-end-line="38" selection-end-column="61" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
-            <marker date="1501466145223" expanded="true" signature="160:193" ph="..." />
+            <marker date="1501485515155" expanded="true" signature="160:193" ph="..." />
           </folding>
         </state>
       </provider>
@@ -598,7 +669,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
           <caret line="18" column="46" lean-forward="false" selection-start-line="18" selection-start-column="46" selection-end-line="18" selection-end-column="46" />
-          <folding />
+          <folding>
+            <element signature="e#0#20#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -618,7 +691,7 @@
           <caret line="73" column="0" lean-forward="false" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
-            <marker date="1501466145223" expanded="true" signature="160:193" ph="..." />
+            <marker date="1501485515155" expanded="true" signature="160:193" ph="..." />
           </folding>
         </state>
       </provider>
@@ -635,7 +708,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="468">
           <caret line="28" column="25" lean-forward="true" selection-start-line="28" selection-start-column="25" selection-end-line="28" selection-end-column="25" />
-          <folding />
+          <folding>
+            <element signature="e#0#20#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -645,7 +720,7 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
-            <marker date="1501466145223" expanded="true" signature="160:193" ph="..." />
+            <marker date="1501485515155" expanded="true" signature="160:193" ph="..." />
           </folding>
         </state>
       </provider>
@@ -667,40 +742,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/dklafj" />
     <entry file="file://$PROJECT_DIR$/programs/asdf.py" />
-    <entry file="file://$PROJECT_DIR$/programs/Mapper.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="14" column="53" lean-forward="false" selection-start-line="14" selection-start-column="53" selection-end-line="14" selection-end-column="53" />
-          <folding>
-            <element signature="e#23#54#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/programs/mc-hdfs.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="810">
-          <caret line="45" column="19" lean-forward="false" selection-start-line="45" selection-start-column="19" selection-end-line="45" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/programs/Formats.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="30" column="40" lean-forward="false" selection-start-line="30" selection-start-column="40" selection-end-line="30" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/programs/Train.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="18" column="46" lean-forward="false" selection-start-line="18" selection-start-column="46" selection-end-line="18" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/programs/Run.sh">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="72">
@@ -709,33 +750,87 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/programs/DownloadFiles.py">
+    <entry file="file://$PROJECT_DIR$/programs/Mapper.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="37" column="12" lean-forward="true" selection-start-line="37" selection-start-column="12" selection-end-line="37" selection-end-column="104" />
+        <state relative-caret-position="288">
+          <caret line="16" column="48" lean-forward="false" selection-start-line="16" selection-start-column="48" selection-end-line="16" selection-end-column="48" />
           <folding>
-            <element signature="e#0#21#0" expanded="true" />
-            <marker date="1501466145223" expanded="true" signature="160:193" ph="..." />
+            <element signature="e#23#54#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/programs/LanguageModel.py">
+    <entry file="file://$PROJECT_DIR$/programs/mc-hdfs.sh">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="26" column="24" lean-forward="false" selection-start-line="26" selection-start-column="24" selection-end-line="26" selection-end-column="24" />
+        <state relative-caret-position="289">
+          <caret line="77" column="35" lean-forward="false" selection-start-line="77" selection-start-column="35" selection-end-line="77" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/programs/Formats.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="448">
+          <caret line="25" column="41" lean-forward="false" selection-start-line="25" selection-start-column="38" selection-end-line="25" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/programs/DownloadFiles.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="87" column="39" lean-forward="false" selection-start-line="87" selection-start-column="39" selection-end-line="87" selection-end-column="39" />
           <folding>
-            <element signature="e#0#13#0" expanded="true" />
+            <element signature="e#0#21#0" expanded="true" />
+            <marker date="1501485515155" expanded="true" signature="160:193" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/programs/CleanData.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="38" column="37" lean-forward="true" selection-start-line="38" selection-start-column="37" selection-end-line="38" selection-end-column="37" />
+        <state relative-caret-position="390">
+          <caret line="104" column="57" lean-forward="false" selection-start-line="104" selection-start-column="57" selection-end-line="104" selection-end-column="57" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/programs/Ngram.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="45" column="46" lean-forward="false" selection-start-line="45" selection-start-column="46" selection-end-line="45" selection-end-column="46" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/programs/LanguageModel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="358">
+          <caret line="157" column="60" lean-forward="false" selection-start-line="157" selection-start-column="60" selection-end-line="157" selection-end-column="60" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/programs/StupidBackoff.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="354">
+          <caret line="64" column="38" lean-forward="false" selection-start-line="64" selection-start-column="38" selection-end-line="64" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/programs/Train.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#20#0" expanded="true" />
           </folding>
         </state>
       </provider>

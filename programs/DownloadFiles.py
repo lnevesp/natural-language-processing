@@ -86,10 +86,10 @@ class CreateCorpus:
             for fname in FileNames:
                 with open(fname) as infile:
                     for line in infile:
-                        outfile.write(line)
+                        outfile.write(str(line) + '\n')
 
-        self.infoLog['CorpusSize'] = round(os.path.getsize(DataPath + "Corpus.txt")/(1024*1024.0),2)
+        self.infoLog['CorpusSize'] = round(os.path.getsize(DataPath + "Corpus.txt")/(1024*1024.0), 2)
         self.infoLog['Time_createCorpus'] = of.evalElapse(start=StartTime)
         of.ElapseEnd(start=StartTime)
 
-CreateCorpus(DataPath='../data/')
+# CreateCorpus(DataPath='../data/')
