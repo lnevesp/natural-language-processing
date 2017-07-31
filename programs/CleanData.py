@@ -30,7 +30,7 @@ class CleanCorpus:
             self.infoLog['Corpus_Lines'] = int(len(Corpus))
 
             # Print time elapse
-            self.infoLog['Time_download'] = of.evalElapse(start=StartTime)
+            self.infoLog['Time_Read'] = of.evalElapse(start=StartTime)
             of.ElapseEnd(start=StartTime)
 
             if os.path.isfile("../data/Tokens.txt") != 1:  # Check if the file already exists
@@ -38,15 +38,17 @@ class CleanCorpus:
                 # Create Corpus =======================================================================================+
                 StartTime = of.calcTime()
                 self.cleanCorpus(Corpus)  # Read Raw Corpus
-
+                self.infoLog['TokensSize'] = round(os.path.getsize("../data/Tokens.txt") / (1024 * 1024.0), 2)
                 self.infoLog['Time_cleanCorpus'] = of.evalElapse(start=StartTime)  # Calculate Time Elapse
                 of.ElapseEnd(start=StartTime)  # Print time Elapse
 
             else:
                 of.NormalMessage(phrase="Tokens already created")
-                self.infoLog['Time_writetokens'] = None
+                self.infoLog['TokensSize'] = round(os.path.getsize("../data/Tokens.txt") / (1024 * 1024.0), 2)
+                self.infoLog['Time_cleanCorpus'] = None
+                self.infoLog['Time_Read'] = None
 
-        # Print Final Time
+            # Print Final Time
         self.infoLog['Time_CleanScript']=of.evalElapse(start=StartScript)
         of.EndScript(start=StartScript, phrase="CleanData.py Finished")
         print(self.infoLog)
@@ -81,6 +83,7 @@ class CleanCorpus:
     def cleanCorpus(self, Corpus):
         StartTime = of.calcTime()
         self.Tokens = []
+        self.infoLog["CountWordTokens"] = 0
         i = 0
         TotalLines = len(Corpus)
         with open("../data/Tokens.txt", 'w') as outfile:
@@ -97,7 +100,7 @@ class CleanCorpus:
                         line = ','.join(map(str, line))
                         outfile.write(line)
 
-# CleanCorpus(Corpus="../data/Corpus.txt")
+CleanCorpus(Corpus="../data/Corpus.txt")
 
 
 

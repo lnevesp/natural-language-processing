@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="55a75503-7b8c-4d20-8823-5d4121f73a4f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/programs/CleanData.py" afterPath="$PROJECT_DIR$/programs/CleanData.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/programs/DownloadFiles.py" afterPath="$PROJECT_DIR$/programs/DownloadFiles.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/programs/LanguageModel.py" afterPath="$PROJECT_DIR$/programs/LanguageModel.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/programs/Run.sh" afterPath="$PROJECT_DIR$/programs/Run.sh" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -15,24 +16,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="DownloadFiles.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DownloadFiles.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/programs/DownloadFiles.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="228">
-              <caret line="76" column="61" lean-forward="false" selection-start-line="76" selection-start-column="61" selection-end-line="76" selection-end-column="61" />
+            <state relative-caret-position="450">
+              <caret line="37" column="12" lean-forward="true" selection-start-line="37" selection-start-column="12" selection-end-line="37" selection-end-column="104" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
-                <marker date="1501464743107" expanded="true" signature="160:193" ph="..." />
+                <marker date="1501466145223" expanded="true" signature="160:193" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CleanData.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="CleanData.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/programs/CleanData.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+            <state relative-caret-position="120">
+              <caret line="38" column="37" lean-forward="true" selection-start-line="38" selection-start-column="37" selection-end-line="38" selection-end-column="37" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -43,9 +44,11 @@
       <file leaf-file-name="LanguageModel.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/programs/LanguageModel.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="651">
-              <caret line="115" column="73" lean-forward="false" selection-start-line="115" selection-start-column="73" selection-end-line="115" selection-end-column="73" />
-              <folding />
+            <state relative-caret-position="252">
+              <caret line="26" column="24" lean-forward="false" selection-start-line="26" selection-start-column="24" selection-end-line="26" selection-end-column="24" />
+              <folding>
+                <element signature="e#0#13#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -85,8 +88,8 @@
       <file leaf-file-name="Run.sh" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/programs/Run.sh">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+            <state relative-caret-position="72">
+              <caret line="4" column="29" lean-forward="false" selection-start-line="4" selection-start-column="29" selection-end-line="4" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -125,13 +128,13 @@
       <list>
         <option value="$PROJECT_DIR$/programs/Train.py" />
         <option value="$PROJECT_DIR$/programs/asdf.py" />
-        <option value="$PROJECT_DIR$/programs/Run.sh" />
-        <option value="$PROJECT_DIR$/programs/LanguageModel.py" />
         <option value="$PROJECT_DIR$/programs/Mapper.py" />
         <option value="$PROJECT_DIR$/programs/mc-hdfs.sh" />
         <option value="$PROJECT_DIR$/programs/Formats.py" />
-        <option value="$PROJECT_DIR$/programs/CleanData.py" />
+        <option value="$PROJECT_DIR$/programs/LanguageModel.py" />
+        <option value="$PROJECT_DIR$/programs/Run.sh" />
         <option value="$PROJECT_DIR$/programs/DownloadFiles.py" />
+        <option value="$PROJECT_DIR$/programs/CleanData.py" />
       </list>
     </option>
   </component>
@@ -327,7 +330,7 @@
           <caret line="69" column="24" lean-forward="false" selection-start-line="69" selection-start-column="24" selection-end-line="69" selection-end-column="24" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
-            <marker date="1501464743107" expanded="true" signature="160:193" ph="..." />
+            <marker date="1501466145223" expanded="true" signature="160:193" ph="..." />
           </folding>
         </state>
       </provider>
@@ -345,7 +348,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1674">
           <caret line="104" column="84" lean-forward="false" selection-start-line="104" selection-start-column="84" selection-end-line="104" selection-end-column="84" />
-          <folding />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -381,7 +386,7 @@
           <caret line="69" column="24" lean-forward="false" selection-start-line="69" selection-start-column="24" selection-end-line="69" selection-end-column="24" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
-            <marker date="1501464743107" expanded="true" signature="160:193" ph="..." />
+            <marker date="1501466145223" expanded="true" signature="160:193" ph="..." />
           </folding>
         </state>
       </provider>
@@ -391,7 +396,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1674">
           <caret line="104" column="84" lean-forward="false" selection-start-line="104" selection-start-column="84" selection-end-line="104" selection-end-column="84" />
-          <folding />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -435,7 +442,7 @@
           <caret line="69" column="24" lean-forward="false" selection-start-line="69" selection-start-column="24" selection-end-line="69" selection-end-column="24" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
-            <marker date="1501464743107" expanded="true" signature="160:193" ph="..." />
+            <marker date="1501466145223" expanded="true" signature="160:193" ph="..." />
           </folding>
         </state>
       </provider>
@@ -444,7 +451,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1674">
           <caret line="104" column="84" lean-forward="true" selection-start-line="104" selection-start-column="84" selection-end-line="104" selection-end-column="84" />
-          <folding />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -489,7 +498,7 @@
           <caret line="69" column="24" lean-forward="false" selection-start-line="69" selection-start-column="24" selection-end-line="69" selection-end-column="24" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
-            <marker date="1501464743107" expanded="true" signature="160:193" ph="..." />
+            <marker date="1501466145223" expanded="true" signature="160:193" ph="..." />
           </folding>
         </state>
       </provider>
@@ -535,7 +544,7 @@
           <caret line="38" column="12" lean-forward="false" selection-start-line="38" selection-start-column="12" selection-end-line="38" selection-end-column="61" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
-            <marker date="1501464743107" expanded="true" signature="160:193" ph="..." />
+            <marker date="1501466145223" expanded="true" signature="160:193" ph="..." />
           </folding>
         </state>
       </provider>
@@ -572,7 +581,7 @@
           <caret line="38" column="12" lean-forward="false" selection-start-line="38" selection-start-column="12" selection-end-line="38" selection-end-column="61" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
-            <marker date="1501464743107" expanded="true" signature="160:193" ph="..." />
+            <marker date="1501466145223" expanded="true" signature="160:193" ph="..." />
           </folding>
         </state>
       </provider>
@@ -609,7 +618,7 @@
           <caret line="73" column="0" lean-forward="false" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
-            <marker date="1501464743107" expanded="true" signature="160:193" ph="..." />
+            <marker date="1501466145223" expanded="true" signature="160:193" ph="..." />
           </folding>
         </state>
       </provider>
@@ -636,7 +645,7 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
-            <marker date="1501464743107" expanded="true" signature="160:193" ph="..." />
+            <marker date="1501466145223" expanded="true" signature="160:193" ph="..." />
           </folding>
         </state>
       </provider>
@@ -653,14 +662,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="342">
           <caret line="19" column="24" lean-forward="false" selection-start-line="19" selection-start-column="24" selection-end-line="19" selection-end-column="66" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/programs/Train.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="18" column="46" lean-forward="false" selection-start-line="18" selection-start-column="46" selection-end-line="18" selection-end-column="46" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -692,39 +693,49 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/programs/Train.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="18" column="46" lean-forward="false" selection-start-line="18" selection-start-column="46" selection-end-line="18" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/programs/Run.sh">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+        <state relative-caret-position="72">
+          <caret line="4" column="29" lean-forward="false" selection-start-line="4" selection-start-column="29" selection-end-line="4" selection-end-column="29" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/programs/LanguageModel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="651">
-          <caret line="115" column="73" lean-forward="false" selection-start-line="115" selection-start-column="73" selection-end-line="115" selection-end-column="73" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/programs/CleanData.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/programs/DownloadFiles.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="76" column="61" lean-forward="false" selection-start-line="76" selection-start-column="61" selection-end-line="76" selection-end-column="61" />
+        <state relative-caret-position="450">
+          <caret line="37" column="12" lean-forward="true" selection-start-line="37" selection-start-column="12" selection-end-line="37" selection-end-column="104" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
-            <marker date="1501464743107" expanded="true" signature="160:193" ph="..." />
+            <marker date="1501466145223" expanded="true" signature="160:193" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/programs/LanguageModel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="26" column="24" lean-forward="false" selection-start-line="26" selection-start-column="24" selection-end-line="26" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/programs/CleanData.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="38" column="37" lean-forward="true" selection-start-line="38" selection-start-column="37" selection-end-line="38" selection-end-column="37" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
           </folding>
         </state>
       </provider>

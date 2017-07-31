@@ -1,6 +1,5 @@
 import random
 import datetime
-from collections import defaultdict
 import subprocess
 import pickle
 import Ngram
@@ -10,12 +9,14 @@ from Formats import TimeFormats as tf
 import pandas as pd
 from shutil import rmtree
 import os
+import numpy as np
 
 
 class GenerateLanguageModel:
 
-    def __init__(self, File, Method , Percent):
-        self.infoLog = defaultdict(list)
+    def __init__(self, ID, File, Method,  Version, Percent):
+        self.infoLog = pd.DataFrame(np.array([[ID]]), columns=['ProcessID'])
+        self.infoLog['Version'] = Version
 
         self.infoLog['StartModel'] = tf.calcTimeNow(self)
 
@@ -24,7 +25,7 @@ class GenerateLanguageModel:
         tf.StartModel(self, self.infoLog['StartModel'])
 
         # Download Files
-        DownloadFiles.CreateCorpus(DataPath = '../data/', infoLog = self.infoLog)
+        DownloadFiles.CreateCorpus(DataPath='../data/', infoLog = self.infoLog)
 
         # Clean Data
         CleanData.CleanCorpus(RawCorpus="../data/RawCorpus.txt", infoLog = self.infoLog)
@@ -120,4 +121,4 @@ class GenerateLanguageModel:
               self.color01 + str(TimeElapse) + "\033[0m")
 
 
-GenerateLanguageModel(File="../data/Tokens.pkl", Method="mapreduce", Percent=0.30)
+GenerateLanguageModel(ID="0001", File="../data/Tokens.txt", Method="mapreduce", Version="Git 0.1", Percent=0.30)

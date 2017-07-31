@@ -35,12 +35,14 @@ class CreateCorpus:
             self.createCorpus(DataPath)
         else:
             of.NormalMessage(phrase="Corpus already created")
+            self.infoLog['CorpusSize'] = round(os.path.getsize(DataPath + "Corpus.txt")/(1024*1024.0),2)
             self.infoLog['TEWriteCorpus'] = datetime.timedelta(0)
 
         # Print Final Time
         self.infoLog['TEDownloadScript'] = of.evalElapse(StartScript)
         of.EndScript(start=StartScript, phrase="DownloadFiles.py Finished")
 
+    # -----------------------------------------------------------------------------------------------------------------#
     # Check if the files are already downloaded, if not it download it
     def download(self, DataPath, File, URL="https://www.dropbox.com/s/hbmn0rbkujnxqrt/ANC_Corpora.tar.gz?dl=1"):
 
@@ -55,6 +57,7 @@ class CreateCorpus:
         self.infoLog['Time_download'] = of.evalElapse(start=StartTime)
         of.ElapseEnd(start=StartTime)
 
+    # -----------------------------------------------------------------------------------------------------------------#
     # Extract files function
     def extractfunc(self, DataPath, compressFile):
 
@@ -70,6 +73,7 @@ class CreateCorpus:
         self.infoLog['Time_extractfunc'] = of.evalElapse(start=StartTime)
         of.ElapseEnd(start=StartTime)
 
+    # -----------------------------------------------------------------------------------------------------------------#
     # Aggregate Files
     def createCorpus(self, DataPath):
 
@@ -84,7 +88,8 @@ class CreateCorpus:
                     for line in infile:
                         outfile.write(line)
 
+        self.infoLog['CorpusSize'] = round(os.path.getsize(DataPath + "Corpus.txt")/(1024*1024.0),2)
         self.infoLog['Time_createCorpus'] = of.evalElapse(start=StartTime)
         of.ElapseEnd(start=StartTime)
 
-# CreateCorpus(DataPath='../data/')
+CreateCorpus(DataPath='../data/')
