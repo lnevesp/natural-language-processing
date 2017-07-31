@@ -53,8 +53,8 @@ class GenerateNGram:
             ngram, count = tuple(ngram.split(',')), int(count)
             ngramDict[length][ngram] += count
 
-        StartFullGram = of.calcTime()  # Save Start Time
-        of.ElapseStart(time=StartFullGram, phrase="Creating FullGram.csv")
+        self.StartFullGram = of.calcTime()  # Save Start Time
+        of.ElapseStart(time=self.StartFullGram, phrase="Creating FullGram.csv")
 
         with open("../data/FullNgrams.csv", 'w') as outfile:
             for length in ngramDict:
@@ -65,7 +65,8 @@ class GenerateNGram:
                     line = (str(length) + completeRow + line + "\n")
                     outfile.write(line)
 
-        of.ElapseEnd(start=StartFullGram)
+        self.infoLog['Time_CreateNGram'] = float(of.deltaTime(self.StartFullGram))
+        of.ElapseEnd(start=self.StartFullGram)
 
     def createNgramData(self):
         StartTime = of.calcTime()  # Save Start Time
@@ -90,3 +91,5 @@ class GenerateNGram:
             NgramFinal = NgramFinal.dropna(axis=0, how='any')
             NgramFinal.to_csv(filename, index=False, encoding='utf-8')
             of.ElapseEnd(start=StartTime)
+
+        self.infoLog['Time_NGramData'] = float(of.deltaTime(self.StartFullGram))

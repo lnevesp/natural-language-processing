@@ -21,26 +21,29 @@ class CreateCorpus:
             self.download(DataPath, File="ANC_Corpora.tar.gz")
         else:
             of.NormalMessage(phrase="Corpora already downloaded")
-            self.infoLog['Time_download'] = datetime.timedelta(0)
+            self.infoLog['Time_Download'] = None
 
         # Extract Files
         if os.path.isdir(DataPath + "ANC_Corpora/") != 1:
             self.extractfunc(DataPath="../data/", compressFile="ANC_Corpora.tar.gz")
         else:
             of.NormalMessage(phrase="Files already extracted")
-            self.infoLog['Time_extractfunc'] = datetime.timedelta(0)
 
         # Create Corpus
         if os.path.isfile(DataPath + "Corpus.txt") != 1:
             self.createCorpus(DataPath)
+            self.infoLog['FileSize_Corpus'] = round(os.path.getsize(DataPath + "Corpus.txt") / (1024 * 1024.0), 2)
+            # self.infoLog['Time_DownloadScript'] = of.deltaTime(StartScript)
         else:
             of.NormalMessage(phrase="Corpus already created")
-            self.infoLog['CorpusSize'] = round(os.path.getsize(DataPath + "Corpus.txt")/(1024*1024.0),2)
-            self.infoLog['TEWriteCorpus'] = datetime.timedelta(0)
+            self.infoLog['FileSize_Corpus'] = round(os.path.getsize(DataPath + "Corpus.txt")/(1024*1024.0),2)
+            self.infoLog['Time_WriteCorpus'] = None
+            self.infoLog['Time_DownloadScript'] = None
 
         # Print Final Time
-        self.infoLog['TEDownloadScript'] = of.evalElapse(StartScript)
+        self.infoLog['Time_DownloadScript'] = float(of.deltaTime(StartScript))
         of.EndScript(start=StartScript, phrase="DownloadFiles.py Finished")
+        # print(self.infoLog)
 
     # -----------------------------------------------------------------------------------------------------------------#
     # Check if the files are already downloaded, if not it download it
@@ -54,11 +57,10 @@ class CreateCorpus:
         urllib.request.urlretrieve(URL, DataPath + File)
 
         # Print time elapse
-        self.infoLog['Time_download'] = of.evalElapse(start=StartTime)
+        self.infoLog['Time_Download'] = of.deltaTime(start=StartTime)
         of.ElapseEnd(start=StartTime)
 
-    # -----------------------------------------------------------------------------------------------------------------#
-    # Extract files function
+    # Extract files function -------------------------------------------------------------------------------------------
     def extractfunc(self, DataPath, compressFile):
 
         StartTime = of.calcTime()
@@ -70,11 +72,9 @@ class CreateCorpus:
             if item.name.find(".tar.gz") != -1:
                 extractfunc(item.name, "./" + item.name[:item.name.rfind('/')])
 
-        self.infoLog['Time_extractfunc'] = of.evalElapse(start=StartTime)
         of.ElapseEnd(start=StartTime)
 
-    # -----------------------------------------------------------------------------------------------------------------#
-    # Aggregate Files
+    # Aggregate Files --------------------------------------------------------------------------------------------------
     def createCorpus(self, DataPath):
 
         StartTime = of.calcTime()
@@ -88,8 +88,7 @@ class CreateCorpus:
                     for line in infile:
                         outfile.write(str(line) + '\n')
 
-        self.infoLog['CorpusSize'] = round(os.path.getsize(DataPath + "Corpus.txt")/(1024*1024.0), 2)
-        self.infoLog['Time_createCorpus'] = of.evalElapse(start=StartTime)
+        self.infoLog['Time_WriteCorpus'] = of.deltaTime(start=StartTime)
         of.ElapseEnd(start=StartTime)
 
 # CreateCorpus(DataPath='../data/')

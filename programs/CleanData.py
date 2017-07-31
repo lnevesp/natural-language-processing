@@ -20,6 +20,10 @@ class CleanCorpus:
 
         if os.path.isfile("../data/Corpus.txt") != 1:
             of.NormalMessage(phrase="Corpus.txt not created. Please, run DownloadFiles.py")
+            self.infoLog['Count_CorpusLines'] = None
+            self.infoLog["Count_WordTokens"] = None
+            self.infoLog['Time_cleanCorpus'] = None
+            self.infoLog['Time_ReadCorpus'] = None
         else:
             # Read Corpus =============================================================================================+
             StartTime = of.calcTime()
@@ -30,7 +34,7 @@ class CleanCorpus:
             self.infoLog['Count_CorpusLines'] = int(len(Corpus))
 
             # Print time elapse
-            self.infoLog['Time_ReadCorpus'] = of.evalElapse(start=StartTime)
+            self.infoLog['Time_ReadCorpus'] = float(of.deltaTime(start=StartTime))
             of.ElapseEnd(start=StartTime)
 
             if os.path.isfile("../data/Tokens.txt") != 1:  # Check if the file already exists
@@ -39,7 +43,7 @@ class CleanCorpus:
                 StartTime = of.calcTime()
                 self.cleanCorpus(Corpus)  # Read Raw Corpus
                 self.infoLog['TokensSize'] = round(os.path.getsize("../data/Tokens.txt") / (1024 * 1024.0), 2)
-                self.infoLog['Time_cleanCorpus'] = of.evalElapse(start=StartTime)  # Calculate Time Elapse
+                self.infoLog['Time_cleanCorpus'] = float(of.deltaTime(start=StartTime))  # Calculate Time Elapse
                 of.ElapseEnd(start=StartTime)  # Print time Elapse
 
             else:
@@ -50,9 +54,9 @@ class CleanCorpus:
                 self.infoLog['Time_ReadCorpus'] = None
 
             # Print Final Time
-        self.infoLog['Time_CleanScript']=of.evalElapse(start=StartScript)
+        self.infoLog['Time_CleanScript']=float(of.deltaTime(start=StartScript))
         of.EndScript(start=StartScript, phrase="CleanData.py Finished")
-        print(self.infoLog)
+        # print(self.infoLog)
 
     # Function: Remove Punctuation ------------------------------------------------------------------------------------+
     def removePunctuation(self, tokens):
@@ -104,7 +108,7 @@ class CleanCorpus:
                             line = ','.join(map(str, line))
                             outfile.write(str(line+"\n"))
 
-CleanCorpus(Corpus="../data/Corpus.txt")
+# CleanCorpus(Corpus="../data/Corpus.txt")
 
 
 

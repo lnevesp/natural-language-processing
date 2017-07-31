@@ -1,8 +1,11 @@
 import datetime
+import time
 
 def calcTime():
     return datetime.datetime.now().time().strftime('%H:%M:%S')
 
+def getDate():
+    return time.strftime("%Y/%m/%d")
 # Format time
 def formatTime(time):
     return datetime.datetime.strptime(time, '%H:%M:%S')
@@ -11,6 +14,10 @@ def formatTime(time):
 def evalElapse(start):
     TimeElapse = formatTime(calcTime()) - formatTime(start)
     return TimeElapse
+
+def deltaTime(start):
+    delta = formatTime(calcTime()) - formatTime(start)
+    return round(delta.seconds + delta.microseconds / 1E6,2)
 
 # Print Format for beginning of a script
 def StartScript(time, phrase):
@@ -47,7 +54,7 @@ def StartModel(phrase, time, k=60):
     color01 = "\033[92m"
     length = len(phrase)
     empty = k-length
-    completeRow = ' '*int((empty/2)-9)
+    completeRow = ' '*int((empty/2))
     title = (completeRow + phrase + ' ')
     print(color01 + ' +' + '-'*k + '+')
     print(color01 + ' |' + '_'*k + '|')

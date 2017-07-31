@@ -19,7 +19,7 @@ class RunStupidBackoff:
         self.Ngram01 = self.readNgram(Ngram=1)
         of.ElapseEnd(StartReadNgram)
 
-        for i in range(1,6):
+        for i in range(1, 6):
             varName = 'FileSize_Ngram-0' + str(i)
             self.infoLog[varName] = round(os.path.getsize("../data/Ngram-0" + str(i) + ".csv") / (1024 * 1024.0), 2)
 

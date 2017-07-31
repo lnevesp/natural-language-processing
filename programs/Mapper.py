@@ -1,17 +1,14 @@
 #!/usr/bin/env python
 
 from collections import Counter
-import pickle
+import fileinput
 
 def createNgram( words, ngram):
     return zip(*[words[i:] for i in range(ngram)])
 
-# TODO: Change the "Read From" to select the argument
-with open('../data/SampleTokens.pkl', "rb") as file:  # Unpickling
-    TokensData = pickle.load(file)
-
-for line in TokensData:
+for line in fileinput.input():
+    words = line.strip().split(',')
     for n in range(1, 6):
-        ngrams_counts = Counter(createNgram(line, n))
+        ngrams_counts = Counter(createNgram(words, n))
         for ngram, count in ngrams_counts.items():
             print('{}\t{}'.format(','.join(ngram), count))

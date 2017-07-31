@@ -12,7 +12,6 @@ for line in fileinput.input():
     ngram_counts[length][ngram] += count
 
 for length in ngram_counts:
-    print(length)
     for ngram, count in ngram_counts[length].items():
         print('{},{}'.format(','.join(ngram), count))
 
