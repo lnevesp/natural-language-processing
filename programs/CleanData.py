@@ -1,6 +1,5 @@
 from nltk.tokenize import word_tokenize
 import re
-import pickle
 import html
 import sys
 import os.path
@@ -8,8 +7,6 @@ import Formats as of
 import pandas as pd
 import numpy as np
 
-# TODO:
-# 1. Dump in *.txt
 
 class CleanCorpus:
 
@@ -36,7 +33,7 @@ class CleanCorpus:
             self.infoLog['Time_download'] = of.evalElapse(start=StartTime)
             of.ElapseEnd(start=StartTime)
 
-            if os.path.isfile("../data/Tokens.pkl") != 1:  # Check if the file already exists
+            if os.path.isfile("../data/Tokens.txt") != 1:  # Check if the file already exists
 
                 # Create Corpus =======================================================================================+
                 StartTime = of.calcTime()
@@ -44,18 +41,6 @@ class CleanCorpus:
 
                 self.infoLog['Time_cleanCorpus'] = of.evalElapse(start=StartTime)  # Calculate Time Elapse
                 of.ElapseEnd(start=StartTime)  # Print time Elapse
-
-                # Write Corpus Corpus =================================================================================+
-                StartTime = of.calcTime()
-                of.ElapseStart(time=StartTime, phrase="Writing Tokens File")
-
-                # If the tokens were created then save then into Tokens.pkl file ======================================+
-                if self.Tokens:
-                    with open('../data/Tokens.pkl', 'wb') as file:
-                        pickle.dump(self.Tokens, file, pickle.HIGHEST_PROTOCOL)
-                # Print time elapse
-                self.infoLog['Time_writetokens'] = of.evalElapse(start=StartTime)
-                of.ElapseEnd(start=StartTime)
 
             else:
                 of.NormalMessage(phrase="Tokens already created")
@@ -87,7 +72,6 @@ class CleanCorpus:
             Sentence = Sentence.strip()  # Deletes the /n on each sentence
             Sentence = ''.join(i for i in Sentence if not i.isdigit())  # Remove numbers
             words = word_tokenize(Sentence)  # Convert lines into word vector (tokenizing)
-            # words = self.unusual_words(text=words, vocab=vocab)  # Clean the vocabulary
             words = self.removePunctuation(tokens=words)  # Removes punctuation
             words_vector.append(words)  # Appends the tokens
         return words_vector
@@ -99,20 +83,19 @@ class CleanCorpus:
         self.Tokens = []
         i = 0
         TotalLines = len(Corpus)
-        for line in Corpus:
-            i += 1
-            sys.stdout.write("\r" + self.color01 + ">>>  " + StartTime + "\033[0m" +
-                             " Cleaning Data" + self.color01 + " | " + "\033[0m" + "Line: " +
-                             self.color01 + str(i) + "/" + str(TotalLines) +
-                             " (" + str(round((i/TotalLines)*100, 2)) + "%)" + "\033[0m")
-            sys.stdout.flush()
-            # LineToken = self.createTokens(line=line, vocab=english_vocab)
-            LineToken = self.createTokens(line=line)
-            if LineToken:
-                for line in LineToken:
-                    self.Tokens.append(line)
-        return self.Tokens
-
+        with open("../data/Tokens.txt", 'w') as outfile:
+            for line in Corpus:
+                i += 1
+                sys.stdout.write("\r" + self.color01 + ">>>  " + StartTime + "\033[0m" +
+                                 " Cleaning Data" + self.color01 + " | " + "\033[0m" + "Line: " +
+                                 self.color01 + str(i) + "/" + str(TotalLines) +
+                                 " (" + str(round((i/TotalLines)*100, 2)) + "%)" + "\033[0m")
+                sys.stdout.flush()
+                LineToken = self.createTokens(line=line)
+                if LineToken:
+                    for line in LineToken:
+                        line = ','.join(map(str, line))
+                        outfile.write(line)
 
 # CleanCorpus(Corpus="../data/Corpus.txt")
 
