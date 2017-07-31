@@ -38,9 +38,10 @@ class GenerateLanguageModel:
         self.infoLog['Seed'] = Seed
 
         # Print Start --------------------------------------------------------------------------------------------------
-        of.StartModel(phrase=str("Creating Language Model - Version: " + str(Version) + "; Method: " + str(Method) +
-                                 "; Sample Rate: " + str(SampleTrainRate)),
-                      time=StartScript, k=140)
+        of.StartModel(Title=str("Creating Language Model - Version: " + str(Version)),
+                      Subtitle=str("Parameters - " + "Method: " + str(Method) +
+                                   "; Sample Rate: " + str(SampleTrainRate)),
+                      Time=StartScript, K=80)
 
         # Download Files -----------------------------------------------------------------------------------------------
         DownloadFiles.CreateCorpus(DataPath='../data/', infoLog=self.infoLog)
@@ -158,7 +159,7 @@ class GenerateLanguageModel:
             # TODO: Read Data from argument instead of hardcoded
             output = "../data/MapReduce"
             mapReduce = "'python Mapper.py' 'python Reducer.py'"
-            blocksize = "5m"
+            blocksize = "15m"
             reducers = "8"
             shell_command = ["cat '../data/TrainTokens.txt' | ./mc-hdfs.sh " + str(blocksize) + " " +
                              reducers + " " + mapReduce + " " + output]
@@ -179,7 +180,8 @@ class GenerateLanguageModel:
                 self.infoLog['Time_NGramData'] = float(of.deltaTime(Start_Time))
 
         elif Method.lower() == "sequential":
-            of.StartScript(self.infoLog['Start_Ngram'], "Executing Sequential Method")
+            Start_Time = of.calcTime()
+            of.StartScript(Start_Time, "Executing Sequential Method")
             TrainTokens = open('../data/TrainTokens.txt')
             TrainTokens = TrainTokens.readlines()
             Ngram.GenerateNGram(Data=TrainTokens, infoLog=self.infoLog)
@@ -188,7 +190,7 @@ class GenerateLanguageModel:
             of.NormalMessage(" is not an available method.")
             self.infoLog['Time_Ngram'] = None
 
-for i in range(1, 10):
-    GenerateLanguageModel(ID=str(i), File="../data/Tokens.txt", Method="sequential", Version="Git 0.1",
+for i in range(1, 31):
+    GenerateLanguageModel(ID=str(i), File="../data/Tokens.txt", Method="MapReduce", Version="Git 0.1",
                           SampleTrainRate=round(i/100, 2), TestModel="No", SampleTestRate=0.01, Seed=17895)
     gc.collect()
