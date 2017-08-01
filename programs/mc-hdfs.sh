@@ -1,6 +1,6 @@
 #!/bin/bash
 
-function usage() { echo "Usage: $0 [-k] <BLOCKSIZE> <NUM_HASHING_SEGS> <MAPPER> <REDUCER> <OUTPUT_DIR>" 1>&2; exit 1; }
+function usage() { echo "Usage: $0 [-k] <NUM_JOBS> <NUM_HASHING_SEGS> <MAPPER> <REDUCER> <OUTPUT_DIR>" 1>&2; exit 1; }
 
 keep_mapper_out=false
 while getopts "k" o; do
@@ -19,7 +19,7 @@ if [ "$#" -ne 5 ]; then
     usage
 fi
    
-BLOCKSIZE="$1"
+NUM_JOBS="$1"
 NUM_HASHING_SEGS="$2"
 MAPPER="$3"
 REDUCER="$4"
@@ -46,19 +46,20 @@ function timer()
 START_TIME=$(timer)
 
 HASHING_SCRIPT=`mktemp hashing.py.XXXX`
-echo hashing script $HASHING_SCRIPT
+#echo hashing script $HASHING_SCRIPT
 TEMPDIR=`mktemp -d mapper_tmp.XXXX`
 {
     echo $' \e[1;32m>>>\e[m' Temporary output directory for mapper created: $'\e[1;32m'$TEMPDIR$'\e[m'
 }>&2
 
 function clean_up() {
-    echo $' \e[1;32m>>>\e[m Cleaning...'
+   # echo $' \e[1;32m>>>\e[m' Cleaning...
     sleep 1
     if [ $keep_mapper_out = false ] ; then
-        rm -r "$TEMPDIR" &&
-        echo  $' \e[1;32m>>>\e[m' Temporary directory deleted: $'\e[1;32m'"$TEMPDIR"$'\e[m' ||
-        echo  $' \e[1;31m*\e[m' Failed to delete temporary directoy: $'\e[1;32m'"$TEMPDIR"$'\e[m'
+        rm -r "$TEMPDIR"
+        #&&
+        #echo  $' \e[1;32m>>>\e[m' Temporary directory deleted: $'\e[1;32m'"$TEMPDIR"$'\e[m' ||
+        #echo  $' \e[1;31m*\e[m' Failed to delete temporary directoy: $'\e[1;32m'"$TEMPDIR"$'\e[m'
     fi
     rm "$HASHING_SCRIPT"
 } >&2
@@ -89,22 +90,20 @@ EOF
 
 mkdir "$5" || exit 1
 echo  $' \e[1;32m>>>\e[m' Mappers running...
-echo 
-parallel --no-notice --pipe --block "${BLOCKSIZE}"  --ungroup   "echo -n $'\e[s\e[F\e[2K           #{#}\e[u' ; ${MAPPER}  | python $HASHING_SCRIPT ${NUM_HASHING_SEGS} {#} $TEMPDIR " # pipe to here
+parallel --no-notice --pipe -${NUM_JOBS}  --round-robin  --ungroup   "echo -n $'\e[s\e[F\e[2K           #{#}\e[u' ; ${MAPPER}  | python $HASHING_SCRIPT ${NUM_HASHING_SEGS} {#} $TEMPDIR " # pipe to here
 echo
 echo  $' \e[1;32m>>>\e[m' Mapper Elasped time: $'\e[1;32m'$(timer $START_TIME)$'\e[m'
-parallel --no-notice --ungroup "sort -k 1,1 -t $'\t' -s {}/*  | ${REDUCER} > '${OUTPUT_DIR}/{/.}'"  ::: "${TEMPDIR}"/*
-echo
-echo  $' \e[1;32m>>>\e[m' Reducer Elasped time: $'\e[1;32m'$(timer $START_TIME)$'\e[m'
 echo  $' \e[1;32m>>>\e[m' Reducer running. Temporary input directory: $'\e[1;32m'"$TEMPDIR"$'\e[m'
+REDUCER_TIME=$(timer)
+parallel --no-notice --ungroup "sort -k 1,1 -t $'\t' -s {}/*  | ${REDUCER} > '${OUTPUT_DIR}/{/.}'"  ::: "${TEMPDIR}"/*
+echo  $' \e[1;32m>>>\e[m' Reducer Elasped time: $'\e[1;32m'$(timer $REDUCER_TIME)$'\e[m'
+
 {
     clean_up
     echo 
     if [ $keep_mapper_out = true ] ; then
-        echo  $' \e[1;33m*\e[m' Mapper output directory: $'\e[1;32m'"$TEMPDIR"$'\e[m'
+        echo  $' \e[1;32m*\e[m' Mapper output directory: $'\e[1;32m'"$TEMPDIR"$'\e[m'
     fi
-    
-    echo  $' \e[1;33m*\e[m' Output directory: $'\e[1;32m'"$OUTPUT_DIR"$'\e[m'
-    echo  $' \e[1;33m*\e[m' Elasped time: $'\e[1;32m'$(timer $START_TIME)$'\e[m'
+    echo  $' \e[1;32m>>>\e[m' $' \e[1;33m*\e[m' Elasped time: $'\e[1;32m'$(timer $START_TIME)$'\e[m'
     
 } >&2

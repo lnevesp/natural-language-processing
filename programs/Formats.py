@@ -64,6 +64,6 @@ def StartModel(Title, Subtitle, Time, K=60):
     print(color01 + ' |' + '='*K + '|')
     print(color01 + ' |  ' + "\033[0m" + completeTitle + color01 + str(Time) + "\033[0m" + "  " + Title + completeTitle + color01 + '|')
     print(color01 + ' |' + '-'*K + '|')
-    print(color01 + ' |  ' + "\033[0m" + completeSubTitle + Subtitle + completeSubTitle + color01 + '|')
+    print(color01 + ' |  ' + "\033[0m" + completeSubTitle + Subtitle + completeSubTitle + color01 + ' |')
     print(color01 + ' |' + '='*K + '|')
     print(color01 + ' +' + '-'*K + '+')

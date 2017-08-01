@@ -8,8 +8,12 @@ class JoinReduceFiles:
 
     def __init__(self, DataPath='../data/',  infoLog = pd.DataFrame(np.array([["0001"]]), columns=['ProcessID'])):
         self.infoLog = infoLog
+        StartTime = of.calcTime()
+        of.ElapseStart(time=StartTime, phrase="Creating N-Grams Data")
         self.joinReduceOutput(DataPath=DataPath)
+        of.ElapseEnd(start=StartTime)
         self.createNgramData(DataPath=DataPath)
+
 
     def joinReduceOutput(self, DataPath):
         ReduceOutput = glob.glob('../data/MapReduce/*')
@@ -27,12 +31,11 @@ class JoinReduceFiles:
         Ngrams = [1, 2, 3, 4, 5]  # Ngram types
         tp = pd.read_csv(DataPath + "FullNgrams.csv", names=labels, iterator=True, chunksize=100000, low_memory=False)  # Read File in Chunks
         df = pd.concat(tp, ignore_index=True)  # Join all chunks
-        sortOrder = labels[:1] + (list(reversed(labels[1:5]))) + labels[6:]
-        df = df.sort_values(sortOrder, ascending=[True, True, True, True, True, False])
+        # sortOrder = labels[:1] + (list(reversed(labels[1:5]))) + labels[6:]
+        # df = df.sort_values(sortOrder, ascending=[True, True, True, True, True, False])
         for i in Ngrams:
             StartTime = of.calcTime()  # Save Start Time
             of.ElapseStart(time=StartTime, phrase="Creating 0" + str(i) + "-Gram Data")
-            # print("Creating 0" + str(i))
             filename = "../data/Ngram-0" + str(i) + ".csv"
             names = labels[(6 - int(i)):]
             NgramFinal = df.loc[(df.NgramID == i), names]

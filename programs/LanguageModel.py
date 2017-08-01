@@ -14,23 +14,31 @@ import gc
 
 class GenerateLanguageModel:
 
-    def __init__(self, ID, File, Method,  Version, SampleTrainRate=0.05, TestModel="no", SampleTestRate=0.01, Seed=123):
+    def __init__(self, File, Method,  Version, SampleTrainRate=0.05, TestModel="no", SampleTestRate=0.01, Seed=123,
+                 ForceNGram = "no", NumJobs=4):
         self.color01 = "\033[92m"  # Green
 
         # Create log data ----------------------------------------------------------------------------------------------
         LogVars = ["ProcessID", "Date", "Start_LanguageModel", "Time_Total", "Version", "PC", "Method", "Seed",
-                   "SampleTrainRate", "Count_SampleTrainLines", "TestModel", "SampleTestRate", "Time_LanguageModel",
+                   "SampleTrainRate", "Count_SampleTrainLines", "TestModel", "NumJobs","SampleTestRate", "Time_LanguageModel",
                    "Time_DownloadScript", "Time_Download", "Time_WriteCorpus", "FileSize_Corpus", "Count_CorpusLines",
                    "Time_CleanScript", "Time_ReadCorpus", "FileSize_TrainTokens", "Count_WordTokens", "Time_cleanCorpus", "Count_TokensLines",
                    "Start_Ngram", "Time_CreateNGram", "Time_NGramData", "Stop_Ngram"]
 
-        self.infoLog = pd.DataFrame(np.array([[ID]]), columns=['ProcessID'])
+        filename = "../data/Log.csv"
+        if os.path.isfile(filename) == 1:
+            tempLog = pd.read_csv(filename)
+            self.infoLog = pd.DataFrame(np.array([[max(tempLog['ProcessID'])]]), columns=['ProcessID'])
+        else:
+            self.infoLog = pd.DataFrame(np.array(["00001"]), columns=['ProcessID'])
+
         self.infoLog = self.infoLog.reindex(columns = LogVars)
         self.infoLog['Date'] = of.getDate()
         self.infoLog['Version'] = Version
         self.infoLog['Method'] = Method
         self.infoLog['PC'] = "ASUS"
         self.infoLog['Start_LanguageModel'] = of.calcTime()
+        self.infoLog['NumJobs'] = NumJobs
         StartScript = of.calcTime()
         self.infoLog['SampleTrainRate'] = SampleTrainRate
         self.infoLog['TestModel'] = TestModel.lower()
@@ -50,37 +58,37 @@ class GenerateLanguageModel:
         CleanData.CleanCorpus(Corpus="../data/Corpus.txt", infoLog = self.infoLog)
 
         # Create Sample ------------------------------------------------------------------------------------------------
-        # if os.path.isfile("../data/TrainTokens.txt") != 1:
-        startTime = of.calcTime()
-        of.ElapseStart(startTime, "Reading Tokens Data")
-        with open(File, "r") as file:
-            Data = file.readlines()
-        N = len(Data)
-        n = int(round(N*SampleTrainRate, 0))
-        self.infoLog['Count_TokensLines'] = N
-        self.infoLog['Count_SampleTrainLines'] = n  # Sample Size
-        of.ElapseEnd(startTime)
+        if (os.path.isfile("../data/TrainTokens.txt") != 1 or ForceNGram.lower() == "yes"):
+            startTime = of.calcTime()
+            of.ElapseStart(startTime, "Reading Tokens Data")
+            with open(File, "r") as file:
+                Data = file.readlines()
+            N = len(Data)
+            n = int(round(N*SampleTrainRate, 0))
+            self.infoLog['Count_TokensLines'] = N
+            self.infoLog['Count_SampleTrainLines'] = n  # Sample Size
+            of.ElapseEnd(startTime)
 
-        # Creating Train Data
-        startTime = of.calcTime()
-        of.ElapseStart(startTime, "Sampling Tokens Data")
-        self.TrainData = self.sampling(Data=Data, output="TrainTokens.txt", N=N, Size=n, seed=Seed, Type="train")
-        FileSize_TrainTokens = round(os.path.getsize("../data/TrainTokens.txt") / (1024 * 1024.0), 2)
-        self.infoLog['FileSize_TrainTokens'] = FileSize_TrainTokens
-        of.ElapseEnd(startTime)
+            # Creating Train Data
+            startTime = of.calcTime()
+            of.ElapseStart(startTime, "Sampling Tokens Data")
+            self.TrainData = self.sampling(Data=Data, output="TrainTokens.txt", N=N, Size=n, seed=Seed, Type="train")
+            FileSize_TrainTokens = round(os.path.getsize("../data/TrainTokens.txt") / (1024 * 1024.0), 2)
+            self.infoLog['FileSize_TrainTokens'] = FileSize_TrainTokens
+            of.ElapseEnd(startTime)
 
-        # Create Model -------------------------------------------------------------------------------------------------
-        self.createModel(Method=Method)
+            # Create Model -------------------------------------------------------------------------------------------------
+            self.createModel(Method=Method)
 
-        # Print Finish Log ---------------------------------------------------------------------------------------------
-        self.infoLog['Stop_Ngram'] = of.calcTime()
-        self.infoLog['Time_LanguageModel'] = of.deltaTime(start=StartScript)
-        of.EndScript(start=StartScript, phrase="Language Model Created")
+            # Print Finish Log ---------------------------------------------------------------------------------------------
+            self.infoLog['Stop_Ngram'] = of.calcTime()
+            self.infoLog['Time_LanguageModel'] = of.deltaTime(start=StartScript)
+            of.EndScript(start=StartScript, phrase="Language Model Created")
 
         # TODO: Test Sample --------------------------------------------------------------------------------------------
         flag_test=str(self.infoLog['TestModel']).lower()
         if flag_test == "yes":
-            if os.path.isfile("../data/TrainTokens.txt") != 1:
+            if os.path.isfile("../data/TestTokens.txt") != 1:
                 startTime = of.calcTime()
                 of.ElapseStart(startTime, "Reading Tokens Data")
                 try:
@@ -93,7 +101,7 @@ class GenerateLanguageModel:
                         N = len(Data)
                 self.infoLog['Count_TokensLines'] = N
                 n = int(round(N * SampleTestRate, 0))
-                self.infoLog['Count_SampleTrainLines'] = n # Sample Size
+                self.infoLog['Count_SampleTestLines'] = n  # Sample Size
                 of.ElapseEnd(startTime)
 
                 # Creating Train Data
@@ -159,9 +167,9 @@ class GenerateLanguageModel:
             # TODO: Read Data from argument instead of hardcoded
             output = "../data/MapReduce"
             mapReduce = "'python Mapper.py' 'python Reducer.py'"
-            blocksize = "15m"
-            reducers = "8"
-            shell_command = ["cat '../data/TrainTokens.txt' | ./mc-hdfs.sh " + str(blocksize) + " " +
+            numJobs = "j" + str(self.infoLog['NumJobs'])  # Number of Jobs (DataNodes)
+            reducers = str(self.infoLog['NumJobs'])
+            shell_command = ["cat '../data/TrainTokens.txt' | ./mc-hdfs.sh " + str(numJobs) + " " +
                              reducers + " " + mapReduce + " " + output]
             if os.path.exists(output):
                 rmtree(output)
@@ -190,13 +198,11 @@ class GenerateLanguageModel:
             of.NormalMessage(" is not an available method.")
             self.infoLog['Time_Ngram'] = None
 
-# Time Complexity
-for i in range(20, 31):
-    GenerateLanguageModel(ID=str(i), File="../data/Tokens.txt", Method="sequential", Version="Git 0.1",
-                          SampleTrainRate=round(i/100, 2), TestModel="No", SampleTestRate=0.01, Seed=17895)
-    gc.collect()
 
-for i in range(20, 31):
-    GenerateLanguageModel(ID=str(i), File="../data/Tokens.txt", Method="MapReduce", Version="Git 0.1",
-                          SampleTrainRate=round(i/100, 2), TestModel="No", SampleTestRate=0.01, Seed=17895)
+# Time Complexity
+samplerate=0.05
+for i in range(1, 3):
+    GenerateLanguageModel(File="../data/Tokens.txt", Method="MapReduce", Version="Git 0.2", ForceNGram="Yes",
+                          SampleTrainRate=samplerate, TestModel="Yes", SampleTestRate=0.01, Seed=17895, NumJobs=8)
+    samplerate = round(samplerate + 0.05, 2)
     gc.collect()
