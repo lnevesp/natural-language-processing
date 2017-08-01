@@ -190,7 +190,13 @@ class GenerateLanguageModel:
             of.NormalMessage(" is not an available method.")
             self.infoLog['Time_Ngram'] = None
 
-for i in range(1, 31):
+# Time Complexity
+for i in range(20, 31):
+    GenerateLanguageModel(ID=str(i), File="../data/Tokens.txt", Method="sequential", Version="Git 0.1",
+                          SampleTrainRate=round(i/100, 2), TestModel="No", SampleTestRate=0.01, Seed=17895)
+    gc.collect()
+
+for i in range(20, 31):
     GenerateLanguageModel(ID=str(i), File="../data/Tokens.txt", Method="MapReduce", Version="Git 0.1",
                           SampleTrainRate=round(i/100, 2), TestModel="No", SampleTestRate=0.01, Seed=17895)
     gc.collect()

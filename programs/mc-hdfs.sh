@@ -88,15 +88,15 @@ EOF
 
 
 mkdir "$5" || exit 1
-echo  $' \e[1;33m>>>\e[m' Mappers running...
+echo  $' \e[1;32m>>>\e[m' Mappers running...
 echo 
 parallel --no-notice --pipe --block "${BLOCKSIZE}"  --ungroup   "echo -n $'\e[s\e[F\e[2K           #{#}\e[u' ; ${MAPPER}  | python $HASHING_SCRIPT ${NUM_HASHING_SEGS} {#} $TEMPDIR " # pipe to here
 echo
-echo  $' \e[1;33m>>>\e[m' Mapper Elasped time: $'\e[1;32m'$(timer $START_TIME)$'\e[m'
+echo  $' \e[1;32m>>>\e[m' Mapper Elasped time: $'\e[1;32m'$(timer $START_TIME)$'\e[m'
 parallel --no-notice --ungroup "sort -k 1,1 -t $'\t' -s {}/*  | ${REDUCER} > '${OUTPUT_DIR}/{/.}'"  ::: "${TEMPDIR}"/*
 echo
-echo  $' \e[1;33m>>>\e[m' Reducer Elasped time: $'\e[1;32m'$(timer $START_TIME)$'\e[m'
-echo  $' \e[1;33m>>>\e[m' Reducer running. Temporary input directory: $'\e[1;32m'"$TEMPDIR"$'\e[m'
+echo  $' \e[1;32m>>>\e[m' Reducer Elasped time: $'\e[1;32m'$(timer $START_TIME)$'\e[m'
+echo  $' \e[1;32m>>>\e[m' Reducer running. Temporary input directory: $'\e[1;32m'"$TEMPDIR"$'\e[m'
 {
     clean_up
     echo 
