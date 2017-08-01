@@ -39,8 +39,6 @@ class JoinReduceFiles:
             filename = "../data/Ngram-0" + str(i) + ".csv"
             names = labels[(6 - int(i)):]
             NgramFinal = df.loc[(df.NgramID == i), names]
-            if len(names) == 2:
-                NgramFinal = NgramFinal.head(5)
             NgramFinal = NgramFinal.dropna(axis=0, how='any')
             NgramFinal.to_csv(filename, index=False, encoding='utf-8')
             of.ElapseEnd(start=StartTime)

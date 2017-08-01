@@ -15,15 +15,17 @@ import gc
 class GenerateLanguageModel:
 
     def __init__(self, File, Method,  Version, SampleTrainRate=0.05, TestModel="no", SampleTestRate=0.01, Seed=123,
-                 ForceNGram = "no", NumJobs=4):
+                 ForceNGram = "no", NumJobs=1):
         self.color01 = "\033[92m"  # Green
 
         # Create log data ----------------------------------------------------------------------------------------------
-        LogVars = ["ProcessID", "Date", "Start_LanguageModel", "Time_Total", "Version", "PC", "Method", "Seed",
-                   "SampleTrainRate", "Count_SampleTrainLines", "TestModel", "NumJobs","SampleTestRate", "Time_LanguageModel",
-                   "Time_DownloadScript", "Time_Download", "Time_WriteCorpus", "FileSize_Corpus", "Count_CorpusLines",
-                   "Time_CleanScript", "Time_ReadCorpus", "FileSize_TrainTokens", "Count_WordTokens", "Time_cleanCorpus", "Count_TokensLines",
-                   "Start_Ngram", "Time_CreateNGram", "Time_NGramData", "Stop_Ngram"]
+        LogVars = ["ProcessID", "Date", "Start_LanguageModel", "Version", "PC", "Method", "NumJobs", "Time_Total",
+                   "Time_DownloadScript", "Time_Download", "Time_WriteCorpus", "Count_CorpusLines", "FileSize_Corpus",
+                   "Time_CleanScript", "Time_ReadCorpus", "Time_cleanCorpus", "Count_WordTokens", "Count_TokensLines",
+                   "SampleTrainRate", "Seed", "Count_SampleTrainLines", "FileSize_TrainTokens",
+                   "Time_LanguageModel", "Time_CreateNGram", "Time_NGramData",
+                   "TestModel", "SampleTestRate", "Count_TestLines", "Accuracy", "MeanTime_StupidBackoff",
+                   "Stop_LanguageModel"]
 
         filename = "../data/Log.csv"
         if os.path.isfile(filename) == 1:
@@ -32,7 +34,7 @@ class GenerateLanguageModel:
         else:
             self.infoLog = pd.DataFrame(np.array(["00001"]), columns=['ProcessID'])
 
-        self.infoLog = self.infoLog.reindex(columns = LogVars)
+        self.infoLog = self.infoLog.reindex(columns=LogVars)
         self.infoLog['Date'] = of.getDate()
         self.infoLog['Version'] = Version
         self.infoLog['Method'] = Method
@@ -77,12 +79,11 @@ class GenerateLanguageModel:
             self.infoLog['FileSize_TrainTokens'] = FileSize_TrainTokens
             of.ElapseEnd(startTime)
 
-            # Create Model -------------------------------------------------------------------------------------------------
-            self.createModel(Method=Method)
-
-            # Print Finish Log ---------------------------------------------------------------------------------------------
+            # Create Model ---------------------------------------------------------------------------------------------
+            startTime = of.calcTime()
+            self.createModel(Method=Method, NumJobs=int(NumJobs))
             self.infoLog['Stop_Ngram'] = of.calcTime()
-            self.infoLog['Time_LanguageModel'] = of.deltaTime(start=StartScript)
+            self.infoLog['Time_LanguageModel'] = of.deltaTime(start=startTime)
             of.EndScript(start=StartScript, phrase="Language Model Created")
 
         # TODO: Test Sample --------------------------------------------------------------------------------------------
@@ -156,7 +157,7 @@ class GenerateLanguageModel:
         return SampleData
 
     # Create Model Function --------------------------------------------------------------------------------------------
-    def createModel(self, Method):
+    def createModel(self, Method, NumJobs):
         Start_Ngram = of.calcTime()
         self.infoLog['Start_Ngram'] = Start_Ngram
 
@@ -167,8 +168,8 @@ class GenerateLanguageModel:
             # TODO: Read Data from argument instead of hardcoded
             output = "../data/MapReduce"
             mapReduce = "'python Mapper.py' 'python Reducer.py'"
-            numJobs = "j" + str(self.infoLog['NumJobs'])  # Number of Jobs (DataNodes)
-            reducers = str(self.infoLog['NumJobs'])
+            numJobs = "j" + str(NumJobs)  # Number of Jobs (DataNodes)
+            reducers = str(NumJobs)
             shell_command = ["cat '../data/TrainTokens.txt' | ./mc-hdfs.sh " + str(numJobs) + " " +
                              reducers + " " + mapReduce + " " + output]
             if os.path.exists(output):
@@ -200,9 +201,13 @@ class GenerateLanguageModel:
 
 
 # Time Complexity
-samplerate=0.05
-for i in range(1, 3):
-    GenerateLanguageModel(File="../data/Tokens.txt", Method="MapReduce", Version="Git 0.2", ForceNGram="Yes",
-                          SampleTrainRate=samplerate, TestModel="Yes", SampleTestRate=0.01, Seed=17895, NumJobs=8)
-    samplerate = round(samplerate + 0.05, 2)
+samplerate=0.01
+for i in range(1, 21):
+    GenerateLanguageModel(File="../data/Tokens.txt", Method="Sequential", Version="Git 0.3", ForceNGram="Yes",
+                          SampleTrainRate=samplerate, TestModel="Yes", SampleTestRate=0.01, Seed=17895, NumJobs=1)
+    samplerate = round(samplerate + 0.01, 2)
+    for j in range(1, 9):
+        GenerateLanguageModel(File="../data/Tokens.txt", Method="MapReduce", Version="Git 0.3", ForceNGram="Yes",
+                              SampleTrainRate=samplerate, TestModel="Yes", SampleTestRate=0.01, Seed=17895, NumJobs=j)
+    samplerate = round(samplerate + 0.01, 2)
     gc.collect()

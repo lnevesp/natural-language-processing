@@ -6,27 +6,24 @@ import pickle
 import html
 import pandas as pd
 import datetime
+import Formats as of
 
 
 class StupidBackoffP:
 
-    def __init__(self, Sentences, Type, Ngram05, Ngram04, Ngram03, Ngram02):
+    def __init__(self, Sentences, Ngram05, Ngram04, Ngram03, Ngram02, Ngram01, TotalWords):
         self.color01 = "\033[92m"  # Output Color: Green
 
         StartSB = datetime.datetime.now()
-        self.Ngram05=Ngram05
-        self.Ngram04 = Ngram04
-        self.Ngram03 = Ngram03
-        self.Ngram02 = Ngram02
 
-        CleanSentence=self.CleanPhrases(Sentences=Sentences, Type=Type)
-        self.findMatch(TrainNgram=CleanSentence, Type="user",
-                       Ngram05 = self.Ngram05,
-                       Ngram04 = self.Ngram04,
-                       Ngram03 = self.Ngram03,
-                       Ngram02 = self.Ngram02)
-        TEReadNgram = (datetime.datetime.now() - datetime.datetime.now())
-        print(self.color01 + ">>> " + "\033[0m" + "Time Elapse: " + str(TEReadNgram.total_seconds() * 1000))
+        CleanSentence=self.CleanPhrases(Sentences=Sentences)
+        self.findMatch(TrainNgram=CleanSentence,
+                       Ngram05=Ngram05, Ngram04=Ngram04, Ngram03=Ngram03, Ngram02=Ngram02, Ngram01=Ngram01,
+                       TotalWords=TotalWords)
+
+        TEReadNgram = (datetime.datetime.now() - StartSB)
+        print(self.color01 + ">>> " + "\033[0m" + "Time Elapse: " +
+              self.color01 + str(round(TEReadNgram.total_seconds(), 2)) + " Seconds" + "\033[0m")
 
 
     def createTokens(self, line):
@@ -54,36 +51,22 @@ class StupidBackoffP:
                 words_vector_RP.append(cleanToken)
         return (words_vector_RP)
 
-    def CleanPhrases(self, Sentences, Type):
-        if Type == "test":
-            with open(Sentences, "rb") as file:  # Unpickling
-                TestData = pickle.load(file)
-                previousWords = []
-                for line in TestData:
-                    length = len(line)
-                    if length > 5:
-                        line=line[-5:]
-                    else:
-                        line=line[-length:]
-                    if line:
-                        previousWords.append(line)
-            return previousWords
-        elif Type == "user":
-            line = self.createTokens(Sentences)
-            line = line[0]
-            length = len(line)
-            previousWords = []
-            # Keep only the last 4 words
-            if length > 4:
-                line = line[-4:]
-            else:
-                line = line[-length:]
-            if line:
-                previousWords.append(line)
-            return previousWords
+    def CleanPhrases(self, Sentences):
+        line = self.createTokens(Sentences)
+        line = line[0]
+        length = len(line)
+        previousWords = []
+        # Keep only the last 4 words
+        if length > 4:
+            line = line[-4:]
+        else:
+            line = line[-length:]
+        if line:
+            previousWords.append(line)
+        return previousWords
 
 
-    def findMatch(self, TrainNgram, Type, Ngram05, Ngram04, Ngram03, Ngram02):
+    def findMatch(self, TrainNgram, Ngram05, Ngram04, Ngram03, Ngram02, Ngram01, TotalWords):
         TrainNgram = TrainNgram[0]
         length = len(TrainNgram)
         TrainNgram = pd.DataFrame(TrainNgram).T
@@ -108,6 +91,10 @@ class StupidBackoffP:
             result02 = pd.merge(left=TrainNgram[labels[3:]], right=Ngram02, on=labels[3:])
             result02["Score"] = (0.4 ** 3) * (result02["Count"] / result02["Count"].sum(axis=0))
             ScoreData = ScoreData.append(result02[columns])
+
+        result01 = Ngram01
+        result01["Score"] = (0.4 ** 3) * (result01["Count"] / TotalWords)
+        ScoreData = ScoreData.append(result01[columns])
 
         self.ScoreData = ScoreData.sort_values("Score", ascending=False)
         maxScore = self.ScoreData.groupby(['Candidate']).Score.transform(max)

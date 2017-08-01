@@ -90,7 +90,7 @@ EOF
 
 mkdir "$5" || exit 1
 echo  $' \e[1;32m>>>\e[m' Mappers running...
-parallel --no-notice --pipe -${NUM_JOBS}  --round-robin  --ungroup   "echo -n $'\e[s\e[F\e[2K           #{#}\e[u' ; ${MAPPER}  | python $HASHING_SCRIPT ${NUM_HASHING_SEGS} {#} $TEMPDIR " # pipe to here
+parallel --no-notice --pipe -"${NUM_JOBS}" --round-robin  --ungroup   "echo -n $'\e[s\e[F\e[2K           #{#}\e[u' ; ${MAPPER}  | python $HASHING_SCRIPT ${NUM_HASHING_SEGS} {#} $TEMPDIR " # pipe to here
 echo
 echo  $' \e[1;32m>>>\e[m' Mapper Elasped time: $'\e[1;32m'$(timer $START_TIME)$'\e[m'
 echo  $' \e[1;32m>>>\e[m' Reducer running. Temporary input directory: $'\e[1;32m'"$TEMPDIR"$'\e[m'

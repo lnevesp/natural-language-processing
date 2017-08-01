@@ -17,6 +17,8 @@ class RunStupidBackoff:
         self.Ngram03 = self.readNgram(Ngram=3)
         self.Ngram02 = self.readNgram(Ngram=2)
         self.Ngram01 = self.readNgram(Ngram=1)
+        self.TotalWords = self.Ngram01['Count'].sum()
+        self.Ngram01 = self.Ngram01.head(5)
         of.ElapseEnd(StartReadNgram)
 
         for i in range(1, 6):
@@ -41,11 +43,13 @@ class RunStupidBackoff:
                 break
             else:
                 print(self.color01 + ">>> Running Stupid-Backoff Algorithm..." + "\033[0m" + "\n")
-                StupidBackoff.StupidBackoffP(Sentence, Type="user",
+                StupidBackoff.StupidBackoffP(Sentence, TotalWords=self.TotalWords,
                                              Ngram05=self.Ngram05,
                                              Ngram04=self.Ngram04,
                                              Ngram03=self.Ngram03,
-                                             Ngram02=self.Ngram02
+                                             Ngram02=self.Ngram02,
+                                             Ngram01=self.Ngram01,
+
                                              )
 
 RunStupidBackoff()
