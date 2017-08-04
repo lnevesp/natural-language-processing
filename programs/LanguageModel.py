@@ -38,7 +38,7 @@ class GenerateLanguageModel:
         self.infoLog['Date'] = of.getDate()
         self.infoLog['Version'] = Version
         self.infoLog['Method'] = Method
-        self.infoLog['PC'] = "ASUS"
+        self.infoLog['PC'] = "DELL"
         self.infoLog['Start_LanguageModel'] = of.calcTime()
         self.infoLog['NumJobs'] = NumJobs
         StartScript = of.calcTime()
@@ -50,7 +50,7 @@ class GenerateLanguageModel:
         # Print Start --------------------------------------------------------------------------------------------------
         of.StartModel(Title=str("Creating Language Model - Version: " + str(Version)),
                       Subtitle=str("Parameters - " + "Method: " + str(Method) +
-                                   "; Sample Rate: " + str(SampleTrainRate)),
+                                   "; Sample Rate: " + str(SampleTrainRate) + "; # Cores: " + str(NumJobs)),
                       Time=StartScript, K=80)
 
         # Download Files -----------------------------------------------------------------------------------------------
@@ -134,7 +134,7 @@ class GenerateLanguageModel:
         print(self.color01 + "\n>>> " + of.calcTime() + "\033[0m" + " Saving Log")
         self.infoLog['Time_Total'] = float(of.deltaTime(StartScript))
         # self.infoLog = pd.DataFrame([self.infoLog])
-        filename = "../data/Log.csv"
+        filename = "./log/Log.csv"
         if os.path.isfile(filename) == 1:
             tempLog = pd.read_csv(filename)
             LogFile = tempLog.append(self.infoLog)
@@ -200,13 +200,18 @@ class GenerateLanguageModel:
             self.infoLog['Time_Ngram'] = None
 
 
-# Time Complexity
-samplerate=0.01
-for i in range(1, 21):
+# Simulations
+samplerate = 0.45
+itr = 10
+cores = 8
+for i in range(1, (itr + 1)):
+    print("\033[41m" + "Running Simulation: " + str(i)+ "/" + str(itr) + " - Part 1/" + str(cores+1) + "\033[0m \n")
     GenerateLanguageModel(File="../data/Tokens.txt", Method="Sequential", Version="Git 0.3", ForceNGram="Yes",
                           SampleTrainRate=samplerate, TestModel="Yes", SampleTestRate=0.01, Seed=17895, NumJobs=1)
-    samplerate = round(samplerate + 0.01, 2)
-    for j in range(1, 9):
+    print()
+    for j in range(1, (cores + 1)):
+        print("\033[41m" + "Running Simulation: " + str(i) + "/" + str(itr) +
+              " - Part " + str(j+1) + "/" + str(cores+1) + "\033[0m \n")
         GenerateLanguageModel(File="../data/Tokens.txt", Method="MapReduce", Version="Git 0.3", ForceNGram="Yes",
                               SampleTrainRate=samplerate, TestModel="Yes", SampleTestRate=0.01, Seed=17895, NumJobs=j)
     samplerate = round(samplerate + 0.01, 2)

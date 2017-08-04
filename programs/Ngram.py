@@ -33,10 +33,10 @@ class GenerateNGram:
         ngramstring = []
         for line in TokensData:
             i += 1
-            sys.stdout.write("\r" + self.color01 + ">>>  " + StartNgram + "\033[0m" +
+            sys.stdout.write("\r" + self.color01 + " >>>  " + StartNgram + "\033[0m" +
                              " Creating N-Grams" + self.color01 + " | " + "\033[0m" + "Sentence: " +
                              self.color01 + str(i) + "/" + str(totalLines) +
-                             " (" + str(round((i/totalLines)*100,2)) + "%)" + "\033[0m")
+                             " (" + str(round((i/totalLines)*100, 2)) + "%)" + "\033[0m")
             sys.stdout.flush()
             line = line.strip().split(',')
             for n in range(1, 6):
@@ -44,14 +44,17 @@ class GenerateNGram:
                 for ngram, count in ngrams_counts.items():
                     string = str('{}\t{}'.format(','.join(ngram), count))
                     ngramstring.append(string)
+
         print()
-        of.NormalMessage("Counting N-Grams Occurrences")
+        StartTime = of.calcTime()
+        of.ElapseStart(time=StartTime, phrase="Counting N-Grams Occurrences")
         for j in ngramstring:
             j = j.strip()
             ngram, count = j.split('\t', 1)
             length = len(ngram.split(','))
             ngram, count = tuple(ngram.split(',')), int(count)
             ngramDict[length][ngram] += count
+        of.ElapseEnd(start=StartTime)
 
         self.infoLog['Time_CreateNGram'] = float(of.deltaTime(StartNgram))
 

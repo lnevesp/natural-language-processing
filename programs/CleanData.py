@@ -94,7 +94,7 @@ class CleanCorpus:
         with open("../data/Tokens.txt", 'w') as outfile:
             for line in Corpus:
                 i += 1
-                sys.stdout.write("\r" + self.color01 + ">>>  " + StartTime + "\033[0m" +
+                sys.stdout.write("\r" + self.color01 + " >>>  " + StartTime + "\033[0m" +
                                  " Cleaning Data" + self.color01 + " | " + "\033[0m" + "Line: " +
                                  self.color01 + str(i) + "/" + str(TotalLines) +
                                  " (" + str(round((i/TotalLines)*100, 2)) + "%)" + "\033[0m")

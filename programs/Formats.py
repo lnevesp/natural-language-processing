@@ -22,20 +22,20 @@ def deltaTime(start):
 # Print Format for beginning of a script
 def StartScript(time, phrase):
     color01 = "\033[92m"
-    print(color01 + "\n>>> " + "\033[0m" +
+    print(color01 + "\n >>> " + "\033[0m" +
           phrase + " - " + color01 + time + "\033[0m")
 
 # Print Format for end of a script
 def EndScript(start, phrase):
     color01 = "\033[92m"
-    print(color01 + ">>> " "\033[0m" +
+    print(color01 + " >>> " "\033[0m" +
           phrase + color01 + " | " + "\033[0m" +
           "Time Elapse: " + color01 + str(evalElapse(start)) + "\033[0m")
 
 # Continuous Message with Time Elapse: Beginning of Message
 def ElapseStart(time, phrase):
     color01 = "\033[92m"
-    print(color01 + ">>>  " + time + "\033[0m" +
+    print(color01 + " >>>  " + time + "\033[0m" +
           " " + phrase, end='', flush=True)
 
 # Continuous Message with Time Elapse: End of Message
@@ -47,7 +47,7 @@ def ElapseEnd(start):
 # Normal Message
 def NormalMessage(phrase):
     color01 = "\033[92m"
-    print(color01 + ">>>  " + calcTime() + "\033[0m" + " " + phrase)
+    print(color01 + " >>>  " + calcTime() + "\033[0m" + " " + phrase)
 
 # Beginning of Procedure Improve this
 def StartModel(Title, Subtitle, Time, K=60):
@@ -64,6 +64,6 @@ def StartModel(Title, Subtitle, Time, K=60):
     print(color01 + ' |' + '='*K + '|')
     print(color01 + ' |  ' + "\033[0m" + completeTitle + color01 + str(Time) + "\033[0m" + "  " + Title + completeTitle + color01 + '|')
     print(color01 + ' |' + '-'*K + '|')
-    print(color01 + ' |  ' + "\033[0m" + completeSubTitle + Subtitle + completeSubTitle + color01 + ' |')
+    print(color01 + ' |  ' + "\033[0m" + completeSubTitle + Subtitle + completeSubTitle + color01 + '|')
     print(color01 + ' |' + '='*K + '|')
     print(color01 + ' +' + '-'*K + '+')
