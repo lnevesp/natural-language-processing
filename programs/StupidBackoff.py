@@ -25,7 +25,7 @@ class StupidBackoffP:
         print(self.color01 + ">>> " + "\033[0m" + "Time Elapse: " +
               self.color01 + str(round(TEReadNgram.total_seconds(), 2)) + " Seconds" + "\033[0m")
 
-
+    #TODO: Rewrite into C loop
     def createTokens(self, line):
         words_vector = []  # Creates an empty list
         line = html.unescape(line)  # Removes HTML or XML character references and entities.
