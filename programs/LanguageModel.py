@@ -201,8 +201,13 @@ class GenerateLanguageModel:
 
 
 # Simulations
+<<<<<<< HEAD
 samplerate = 0.05
 itr = 2
+=======
+samplerate = 0.50
+itr = 10
+>>>>>>> origin/master
 cores = 8
 for i in range(1, (itr + 1)):
     print("\033[41m" + "Running Simulation: " + str(i)+ "/" + str(itr) + " - Part 1/" + str(cores+1) + "\033[0m \n")
