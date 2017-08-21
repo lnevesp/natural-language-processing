@@ -201,8 +201,8 @@ class GenerateLanguageModel:
 
 
 # Simulations
-samplerate = 0.45
-itr = 10
+samplerate = 0.05
+itr = 2
 cores = 8
 for i in range(1, (itr + 1)):
     print("\033[41m" + "Running Simulation: " + str(i)+ "/" + str(itr) + " - Part 1/" + str(cores+1) + "\033[0m \n")
@@ -214,5 +214,5 @@ for i in range(1, (itr + 1)):
               " - Part " + str(j+1) + "/" + str(cores+1) + "\033[0m \n")
         GenerateLanguageModel(File="../data/Tokens.txt", Method="MapReduce", Version="Git 0.3", ForceNGram="Yes",
                               SampleTrainRate=samplerate, TestModel="Yes", SampleTestRate=0.01, Seed=17895, NumJobs=j)
-    samplerate = round(samplerate + 0.01, 2)
+    samplerate = round(samplerate + 0.05, 2)
     gc.collect()
