@@ -4,6 +4,7 @@ from collections import Counter, defaultdict
 import Formats as of
 
 
+# Transform all loops into C Loops
 class GenerateNGram:
 
     def __init__(self, Data, infoLog = defaultdict()):
