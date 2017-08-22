@@ -27,17 +27,17 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CleanData.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="CleanData.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/programs/CleanData.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1458">
-              <caret line="88" column="33" lean-forward="false" selection-start-line="88" selection-start-column="33" selection-end-line="88" selection-end-column="33" />
+            <state relative-caret-position="401">
+              <caret line="62" column="62" lean-forward="false" selection-start-line="62" selection-start-column="62" selection-end-line="62" selection-end-column="62" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Mapper.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Mapper.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/programs/Mapper.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="144">
@@ -166,12 +166,12 @@
         <option value="$PROJECT_DIR$/programs/Train.py" />
         <option value="$PROJECT_DIR$/programs/mc-hdfs.sh" />
         <option value="$PROJECT_DIR$/programs/Formats.py" />
-        <option value="$PROJECT_DIR$/programs/CleanData.py" />
         <option value="$PROJECT_DIR$/programs/Ngram.py" />
         <option value="$PROJECT_DIR$/programs/LanguageModel.py" />
         <option value="$PROJECT_DIR$/programs/StupidBackoff.py" />
         <option value="$PROJECT_DIR$/programs/JoinReduce.py" />
         <option value="$PROJECT_DIR$/programs/Mapper.py" />
+        <option value="$PROJECT_DIR$/programs/CleanData.py" />
       </list>
     </option>
   </component>
@@ -781,14 +781,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/programs/CleanData.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1458">
-          <caret line="88" column="33" lean-forward="false" selection-start-line="88" selection-start-column="33" selection-end-line="88" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/programs/StupidBackoff.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="177">
@@ -816,6 +808,14 @@
           <folding>
             <element signature="e#23#54#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/programs/CleanData.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="401">
+          <caret line="62" column="62" lean-forward="false" selection-start-line="62" selection-start-column="62" selection-end-line="62" selection-end-column="62" />
+          <folding />
         </state>
       </provider>
     </entry>
