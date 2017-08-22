@@ -19,6 +19,7 @@ class GenerateLanguageModel:
         self.color01 = "\033[92m"  # Green
 
         # Create log data ----------------------------------------------------------------------------------------------
+        # Add rest of useful information
         LogVars = ["ProcessID", "Date", "Start_LanguageModel", "Version", "PC", "Method", "NumJobs", "Time_Total",
                    "Time_DownloadScript", "Time_Download", "Time_WriteCorpus", "Count_CorpusLines", "FileSize_Corpus",
                    "Time_CleanScript", "Time_ReadCorpus", "Time_cleanCorpus", "Count_WordTokens", "Count_TokensLines",
