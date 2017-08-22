@@ -26,6 +26,7 @@ class JoinReduceFiles:
                         line=(str(lineCount) + completeRow + line)
                         outfile.write(line)
 
+    # Optimize this thing
     def createNgramData(self, DataPath):
         labels = ["NgramID", "5Gram", "4Gram", "3Gram", "2Gram", "Candidate", "Count"]  # Columns Names
         Ngrams = [1, 2, 3, 4, 5]  # Ngram types
