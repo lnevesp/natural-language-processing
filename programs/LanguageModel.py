@@ -11,7 +11,7 @@ import os
 import numpy as np
 import gc
 
-
+# Change all loops to C Loops
 class GenerateLanguageModel:
 
     def __init__(self, File, Method,  Version, SampleTrainRate=0.05, TestModel="no", SampleTestRate=0.01, Seed=123,
