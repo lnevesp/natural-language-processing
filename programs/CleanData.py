@@ -60,7 +60,7 @@ class CleanCorpus:
 
     # Function: Remove Punctuation ------------------------------------------------------------------------------------+
     def removePunctuation(self, tokens):
-        regex = re.compile('[^a-zA-Z]')  # Optimize this thing
+        regex = re.compile('[^a-zA-Z]')  #TODO: Optimize this thing
 
         words_vector_RP = []
         for token in tokens:
