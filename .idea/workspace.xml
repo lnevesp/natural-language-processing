@@ -37,7 +37,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Mapper.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Mapper.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/programs/Mapper.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="144">
@@ -52,11 +52,21 @@
       <file leaf-file-name="Ngram.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/programs/Ngram.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
+            <state relative-caret-position="-85">
               <caret line="11" column="24" lean-forward="false" selection-start-line="11" selection-start-column="24" selection-end-line="11" selection-end-column="24" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DownloadFiles.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/programs/DownloadFiles.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="36">
+              <caret line="9" column="22" lean-forward="false" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -164,7 +174,6 @@
         <option value="$PROJECT_DIR$/programs/asdf.py" />
         <option value="$PROJECT_DIR$/programs/Run.sh" />
         <option value="$PROJECT_DIR$/programs/Reducer.py" />
-        <option value="$PROJECT_DIR$/programs/DownloadFiles.py" />
         <option value="$PROJECT_DIR$/programs/mc-hdfs.sh" />
         <option value="$PROJECT_DIR$/programs/Formats.py" />
         <option value="$PROJECT_DIR$/programs/StupidBackoff.py" />
@@ -174,6 +183,7 @@
         <option value="$PROJECT_DIR$/programs/LanguageModel.py" />
         <option value="$PROJECT_DIR$/programs/Train.py" />
         <option value="$PROJECT_DIR$/programs/Mapper.py" />
+        <option value="$PROJECT_DIR$/programs/DownloadFiles.py" />
       </list>
     </option>
   </component>
@@ -714,13 +724,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/programs/DownloadFiles.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="702">
-          <caret line="46" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/programs/Reducer.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
@@ -775,16 +778,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/programs/Ngram.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="11" column="24" lean-forward="false" selection-start-line="11" selection-start-column="24" selection-end-line="11" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#19#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/programs/LanguageModel.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="72">
@@ -820,6 +813,24 @@
           <folding>
             <element signature="e#23#54#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/programs/Ngram.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-85">
+          <caret line="11" column="24" lean-forward="false" selection-start-line="11" selection-start-column="24" selection-end-line="11" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/programs/DownloadFiles.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="9" column="22" lean-forward="false" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
+          <folding />
         </state>
       </provider>
     </entry>

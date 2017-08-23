@@ -7,6 +7,7 @@ import pandas as pd
 import Formats as of
 import numpy as np
 
+# TODO: Find more data
 class CreateCorpus:
 
     def __init__(self, DataPath='../data/', infoLog=pd.DataFrame(np.array([["0001"]]), columns=['ProcessID'])):
