@@ -4,6 +4,7 @@ import Formats as of
 import numpy as np
 
 
+# TODO: Improve join method
 class JoinReduceFiles:
 
     def __init__(self, DataPath='../data/',  infoLog = pd.DataFrame(np.array([["0001"]]), columns=['ProcessID'])):
