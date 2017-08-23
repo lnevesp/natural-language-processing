@@ -4,7 +4,7 @@ from collections import Counter, defaultdict
 import Formats as of
 
 
-#TODO: Transform all loops into C Loops
+#TODO: Transform all loops into C Loops. Test other methods to create Ngram, create option also for MapReduce
 class GenerateNGram:
 
     def __init__(self, Data, infoLog = defaultdict()):
