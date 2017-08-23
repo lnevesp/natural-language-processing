@@ -6,7 +6,7 @@ import fileinput
 def createNgram( words, ngram):
     return zip(*[words[i:] for i in range(ngram)])
 
-# Add pre counter
+# TODO: Add pre counter
 for line in fileinput.input():
     words = line.strip().split(',')
     for n in range(1, 6):
