@@ -8,6 +8,7 @@ import pandas as pd
 import numpy as np
 
 
+# TODO: Use more advanced methods for cleaning the data.
 class CleanCorpus:
 
     def __init__(self, Corpus = "../data/Corpus.txt", infoLog = pd.DataFrame(np.array([["0001"]]), columns=['ProcessID'])):
