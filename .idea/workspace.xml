@@ -15,7 +15,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="LanguageModel.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="LanguageModel.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/programs/LanguageModel.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="72">
@@ -85,11 +85,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Train.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Train.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/programs/Train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="20" column="43" lean-forward="false" selection-start-line="20" selection-start-column="43" selection-end-line="20" selection-end-column="43" />
+            <state relative-caret-position="504">
+              <caret line="32" column="53" lean-forward="false" selection-start-line="32" selection-start-column="53" selection-end-line="32" selection-end-column="53" />
               <folding />
             </state>
           </provider>
@@ -163,7 +163,6 @@
         <option value="$PROJECT_DIR$/programs/Run.sh" />
         <option value="$PROJECT_DIR$/programs/Reducer.py" />
         <option value="$PROJECT_DIR$/programs/DownloadFiles.py" />
-        <option value="$PROJECT_DIR$/programs/Train.py" />
         <option value="$PROJECT_DIR$/programs/mc-hdfs.sh" />
         <option value="$PROJECT_DIR$/programs/Formats.py" />
         <option value="$PROJECT_DIR$/programs/StupidBackoff.py" />
@@ -172,6 +171,7 @@
         <option value="$PROJECT_DIR$/programs/Ngram.py" />
         <option value="$PROJECT_DIR$/programs/CleanData.py" />
         <option value="$PROJECT_DIR$/programs/LanguageModel.py" />
+        <option value="$PROJECT_DIR$/programs/Train.py" />
       </list>
     </option>
   </component>
@@ -741,14 +741,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/programs/Train.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="20" column="43" lean-forward="false" selection-start-line="20" selection-start-column="43" selection-end-line="20" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/programs/Formats.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="774">
@@ -816,6 +808,14 @@
           <folding>
             <element signature="e#0#13#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/programs/Train.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="504">
+          <caret line="32" column="53" lean-forward="false" selection-start-line="32" selection-start-column="53" selection-end-line="32" selection-end-column="53" />
+          <folding />
         </state>
       </provider>
     </entry>

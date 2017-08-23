@@ -30,6 +30,7 @@ class RunStupidBackoff:
 
         print(self.infoLog)
 
+    # TODO: Find better method to store and read data
     def readNgram(self, Ngram):
         temp = pd.read_csv("../data/Ngram-0" + str(Ngram) + ".csv", iterator=True, chunksize=100000, low_memory=False)
         temp = pd.concat(temp, ignore_index=True)
