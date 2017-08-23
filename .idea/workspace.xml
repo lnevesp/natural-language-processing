@@ -15,11 +15,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="LanguageModel.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="LanguageModel.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/programs/LanguageModel.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="32" column="43" lean-forward="false" selection-start-line="32" selection-start-column="43" selection-end-line="32" selection-end-column="43" />
+            <state relative-caret-position="72">
+              <caret line="16" column="79" lean-forward="false" selection-start-line="16" selection-start-column="79" selection-end-line="16" selection-end-column="79" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -27,7 +27,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CleanData.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CleanData.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/programs/CleanData.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="180">
@@ -169,9 +169,9 @@
         <option value="$PROJECT_DIR$/programs/StupidBackoff.py" />
         <option value="$PROJECT_DIR$/programs/JoinReduce.py" />
         <option value="$PROJECT_DIR$/programs/Mapper.py" />
-        <option value="$PROJECT_DIR$/programs/LanguageModel.py" />
         <option value="$PROJECT_DIR$/programs/Ngram.py" />
         <option value="$PROJECT_DIR$/programs/CleanData.py" />
+        <option value="$PROJECT_DIR$/programs/LanguageModel.py" />
       </list>
     </option>
   </component>
@@ -791,16 +791,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/programs/LanguageModel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="32" column="43" lean-forward="false" selection-start-line="32" selection-start-column="43" selection-end-line="32" selection-end-column="43" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/programs/Ngram.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
@@ -816,6 +806,16 @@
         <state relative-caret-position="180">
           <caret line="62" column="47" lean-forward="false" selection-start-line="62" selection-start-column="47" selection-end-line="62" selection-end-column="47" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/programs/LanguageModel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="16" column="79" lean-forward="false" selection-start-line="16" selection-start-column="79" selection-end-line="16" selection-end-column="79" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

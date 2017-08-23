@@ -14,7 +14,7 @@ import gc
 # Change all loops to C Loops
 class GenerateLanguageModel:
 
-    def __init__(self, File, Method,  Version, SampleTrainRate=0.05, TestModel="no", SampleTestRate=0.01, Seed=123,
+    def __init__(self, File, Method,  Version, SampleTrainRate=0.05, TestModel = "no", SampleTestRate=0.01, Seed = 123,
                  ForceNGram = "no", NumJobs=1):
         self.color01 = "\033[92m"  # Green
 
